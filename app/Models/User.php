@@ -8,32 +8,17 @@
  * @package     Ponut
  */
 
-namespace Ponut;
+namespace Ponut\Models;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
     use Notifiable;
 
     protected $table = 'users';
     public $timestamps = true;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'username', 'first_name', 'last_name', 'email', 'language', 'job_title', 'status', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -41,5 +26,10 @@ class User extends Authenticatable
     public function __construct()
     {
         $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
+    }
+
+    public function metas()
+    {
+        return $this->hasMany('Ponut\Models\UserMeta', 'user_id', 'id');
     }
 }
