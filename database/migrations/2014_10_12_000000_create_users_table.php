@@ -1,4 +1,13 @@
 <?php
+/**
+ * Ponut - Applicant Tracking System
+ *
+ * @author      Clivern <hello@clivern.com>
+ * @copyright   2016 Clivern
+ * @link        http://clivern.com
+ * @license     MIT
+ * @package     Ponut
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,13 +22,21 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create(env('DB_TABLES_PREFIX', '') . 'users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('username', 60)->unique();
+            $table->string('first_name', 60);
+            $table->string('last_name', 60);
+            $table->string('email', 60)->unique();
+            $table->string('language', 20);
+            $table->string('job_title');
             $table->string('password');
+            $table->string('status', 20);
+            $table->integer('avatar_file_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->index(['username', 'email']);
+            $table->foreign('avatar_file_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'files')->onDelete('cascade');
         });
     }
 
@@ -30,6 +47,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'users');
     }
 }

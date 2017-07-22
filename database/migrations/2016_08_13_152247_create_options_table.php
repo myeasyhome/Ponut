@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class CreateOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,10 +22,13 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+        Schema::create(env('DB_TABLES_PREFIX', '') . 'options', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('op_key', 60);
+            $table->longText('op_value');
+            $table->enum('autoload', ['on', 'off']);
+            $table->timestamps();
+            $table->index(['op_key', 'autoload']);
         });
     }
 
@@ -36,6 +39,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'password_resets');
+        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'options');
     }
 }
