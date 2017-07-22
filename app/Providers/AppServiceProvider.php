@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Ponut\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
