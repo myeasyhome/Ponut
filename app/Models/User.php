@@ -23,11 +23,6 @@ class User extends Model
         'password', 'remember_token',
     ];
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function metas()
     {
         return $this->hasMany('Ponut\Models\UserMeta', 'user_id', 'id');

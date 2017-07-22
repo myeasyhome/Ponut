@@ -16,11 +16,4 @@ class CandidateNote extends Model
 {
     protected $table = 'candidate_notes';
     public $timestamps = true;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }
-
-

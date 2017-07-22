@@ -17,11 +17,6 @@ class UserMeta extends Model
     protected $table = 'users_meta';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function user()
     {
         return $this->belongsTo('Ponut\Models\User', 'user_id', 'id');

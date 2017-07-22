@@ -16,9 +16,4 @@ class PasswordReset extends Model
 {
     protected $table = 'password_resets';
     public $timestamps = false;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }

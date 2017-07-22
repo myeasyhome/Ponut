@@ -16,9 +16,4 @@ class Calendar extends Model
 {
     protected $table = 'calendar';
     public $timestamps = true;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }

@@ -17,11 +17,6 @@ class DepartmentMeta extends Model
     protected $table = 'departments_meta';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function department()
     {
         return $this->belongsTo('Ponut\Models\Department', 'department_id', 'id');

@@ -16,10 +16,4 @@ class File extends Model
 {
     protected $table = 'files';
     public $timestamps = true;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }
-

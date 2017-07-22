@@ -17,11 +17,6 @@ class Candidate extends Model
     protected $table = 'candidates';
     public $timestamps = true;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function metas()
     {
         return $this->hasMany('Ponut\Models\CandidateMeta', 'candidate_id', 'id');

@@ -16,11 +16,4 @@ class CandidateScorecardRating extends Model
 {
     protected $table = 'candidate_scorecard_rating';
     public $timestamps = true;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }
-
-

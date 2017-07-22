@@ -16,11 +16,4 @@ class JobHiringTeam extends Model
 {
     protected $table = 'job_hiring_team';
     public $timestamps = false;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }
-
-

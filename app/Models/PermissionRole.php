@@ -17,11 +17,6 @@ class PermissionRole extends Model
     protected $table = 'permission_role';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function permission()
     {
         return $this->belongsTo('Ponut\Models\Permission', 'permission_id', 'id');

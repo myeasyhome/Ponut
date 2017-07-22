@@ -17,11 +17,6 @@ class FieldValue extends Model
     protected $table = 'field_value';
     public $timestamps = true;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function candidate()
     {
         return $this->belongsTo('Ponut\Models\Candidate', 'candidate_id', 'id');

@@ -17,11 +17,6 @@ class RoleUser extends Model
     protected $table = 'role_user';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function role()
     {
         return $this->belongsTo('Ponut\Models\Role', 'role_id', 'id');

@@ -17,11 +17,6 @@ class Field extends Model
     protected $table = 'fields';
     public $timestamps = true;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function job()
     {
         return $this->belongsTo('Ponut\Models\Job', 'job_id', 'id');

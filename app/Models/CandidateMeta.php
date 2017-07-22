@@ -17,11 +17,6 @@ class CandidateMeta extends Model
     protected $table = 'candidates_meta';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function candidate()
     {
         return $this->belongsTo('Ponut\Models\Candidate', 'candidate_id', 'id');

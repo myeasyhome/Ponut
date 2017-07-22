@@ -17,11 +17,6 @@ class Job extends Model
     protected $table = 'jobs';
     public $timestamps = true;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function metas()
     {
         return $this->hasMany('Ponut\Models\JobMeta', 'job_id', 'id');

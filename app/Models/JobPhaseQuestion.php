@@ -16,11 +16,4 @@ class JobPhaseQuestion extends Model
 {
     protected $table = 'job_phase_questions';
     public $timestamps = true;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }
-
-

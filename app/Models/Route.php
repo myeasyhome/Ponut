@@ -16,9 +16,4 @@ class Route extends Model
 {
     protected $table = 'routes';
     public $timestamps = true;
-
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
 }

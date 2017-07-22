@@ -17,11 +17,6 @@ class JobMeta extends Model
     protected $table = 'jobs_meta';
     public $timestamps = false;
 
-    public function __construct()
-    {
-        $this->table = env('DB_TABLES_PREFIX', '') . $this->table;
-    }
-
     public function job()
     {
         return $this->belongsTo('Ponut\Models\Job', 'job_id', 'id');
