@@ -22,7 +22,7 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'jobs', function (Blueprint $table) {
+        Schema::create('jobs', function (Blueprint $table) {
 
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -51,8 +51,8 @@ class CreateJobsTable extends Migration
             $table->integer('salary_to')->nullable();
             $table->timestamps();
             $table->index(['user_id', 'department_id', 'slug']);
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')->onDelete('cascade');
-            $table->foreign('department_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'departments')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
 
         });
     }
@@ -64,6 +64,6 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'jobs');
+        Schema::dropIfExists('jobs');
     }
 }

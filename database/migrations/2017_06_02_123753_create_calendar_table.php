@@ -22,7 +22,7 @@ class CreateCalendarTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'calendar', function (Blueprint $table) {
+        Schema::create('calendar', function (Blueprint $table) {
             $table->increments('id');
 
             $table->timestamps();
@@ -36,6 +36,6 @@ class CreateCalendarTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'calendar');
+        Schema::dropIfExists('calendar');
     }
 }

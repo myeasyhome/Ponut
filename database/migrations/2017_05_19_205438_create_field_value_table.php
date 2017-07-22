@@ -22,14 +22,14 @@ class CreateFieldValueTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'field_value', function (Blueprint $table) {
+        Schema::create('field_value', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('candidate_id')->unsigned();
             $table->integer('field_id')->unsigned();
             $table->mediumText('value');
             $table->index(['candidate_id', 'field_id']);
-            $table->foreign('candidate_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'candidates')->onDelete('cascade');
-            $table->foreign('field_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'fields')->onDelete('cascade');
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
+            $table->foreign('field_id')->references('id')->on('fields')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateFieldValueTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'field_value');
+        Schema::dropIfExists('field_value');
     }
 }

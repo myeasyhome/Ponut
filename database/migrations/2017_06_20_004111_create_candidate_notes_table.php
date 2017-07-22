@@ -22,14 +22,14 @@ class CreateCandidateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'candidate_notes', function (Blueprint $table) {
+        Schema::create('candidate_notes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('candidate_id')->unsigned();
             $table->text('note');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')->onDelete('cascade');
-            $table->foreign('candidate_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'candidates')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateCandidateNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'candidate_notes');
+        Schema::dropIfExists('candidate_notes');
     }
 }

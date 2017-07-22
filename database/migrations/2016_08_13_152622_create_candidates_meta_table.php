@@ -22,14 +22,14 @@ class CreateCandidatesMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'candidates_meta', function (Blueprint $table) {
+        Schema::create('candidates_meta', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('candidate_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
             $table->timestamps();
             $table->index(['candidate_id', 'me_key']);
-            $table->foreign('candidate_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'candidates')->onDelete('cascade');
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateCandidatesMetaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'candidates_meta');
+        Schema::dropIfExists('candidates_meta');
     }
 }

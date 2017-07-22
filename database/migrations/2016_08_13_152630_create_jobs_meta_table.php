@@ -22,14 +22,14 @@ class CreateJobsMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'jobs_meta', function (Blueprint $table) {
+        Schema::create('jobs_meta', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
             $table->timestamps();
             $table->index(['job_id', 'me_key']);
-            $table->foreign('job_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'jobs')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateJobsMetaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'jobs_meta');
+        Schema::dropIfExists('jobs_meta');
     }
 }

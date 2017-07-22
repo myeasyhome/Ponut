@@ -22,12 +22,12 @@ class CreateJobPhaseScorecardTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'job_phase_scorecard', function (Blueprint $table) {
+        Schema::create('job_phase_scorecard', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('phase_id')->unsigned();
             $table->string('criteria', 100);
             $table->timestamps();
-            $table->foreign('phase_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'job_phases')->onDelete('cascade');
+            $table->foreign('phase_id')->references('id')->on('job_phases')->onDelete('cascade');
         });
     }
 
@@ -38,6 +38,6 @@ class CreateJobPhaseScorecardTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'job_phase_scorecard');
+        Schema::dropIfExists('job_phase_scorecard');
     }
 }

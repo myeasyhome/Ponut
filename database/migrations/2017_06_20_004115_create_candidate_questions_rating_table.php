@@ -22,16 +22,16 @@ class CreateCandidateQuestionsRatingTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'candidate_questions_rating', function (Blueprint $table) {
+        Schema::create('candidate_questions_rating', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('candidate_id')->unsigned();
             $table->integer('question_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('rating', 50);
             $table->timestamps();
-            $table->foreign('candidate_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'candidates')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')->onDelete('cascade');
-            $table->foreign('question_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'job_phase_questions')->onDelete('cascade');
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('job_phase_questions')->onDelete('cascade');
         });
     }
 
@@ -42,6 +42,6 @@ class CreateCandidateQuestionsRatingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'candidate_questions_rating');
+        Schema::dropIfExists('candidate_questions_rating');
     }
 }

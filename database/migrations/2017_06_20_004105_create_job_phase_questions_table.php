@@ -22,7 +22,7 @@ class CreateJobPhaseQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'job_phase_questions', function (Blueprint $table) {
+        Schema::create('job_phase_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('phase_id')->unsigned();
             $table->integer('order');
@@ -30,7 +30,7 @@ class CreateJobPhaseQuestionsTable extends Migration
             $table->text('answer');
             $table->enum('allow_rating', ['on', 'off']);
             $table->timestamps();
-            $table->foreign('phase_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'job_phases')->onDelete('cascade');
+            $table->foreign('phase_id')->references('id')->on('job_phases')->onDelete('cascade');
         });
     }
 
@@ -41,6 +41,6 @@ class CreateJobPhaseQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'job_phase_questions');
+        Schema::dropIfExists('job_phase_questions');
     }
 }

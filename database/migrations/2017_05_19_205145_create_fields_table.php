@@ -22,7 +22,7 @@ class CreateFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'fields', function (Blueprint $table) {
+        Schema::create('fields', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
             $table->string('label');
@@ -31,7 +31,7 @@ class CreateFieldsTable extends Migration
             $table->enum('required', ['yes', 'no']);
             $table->tinyInteger('order');
             $table->index(['job_id']);
-            $table->foreign('job_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'jobs')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
         });
     }
 
@@ -42,6 +42,6 @@ class CreateFieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'fields');
+        Schema::dropIfExists('fields');
     }
 }

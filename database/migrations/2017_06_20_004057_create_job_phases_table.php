@@ -22,13 +22,13 @@ class CreateJobPhasesTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'job_phases', function (Blueprint $table) {
+        Schema::create('job_phases', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
             $table->string('phase', 100);
             $table->string('slug', 150)->unique();
             $table->timestamps();
-            $table->foreign('job_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'jobs')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
         });
     }
 
@@ -39,6 +39,6 @@ class CreateJobPhasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'job_phases');
+        Schema::dropIfExists('job_phases');
     }
 }

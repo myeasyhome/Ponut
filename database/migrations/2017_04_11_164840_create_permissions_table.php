@@ -22,7 +22,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'permissions', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 60)->unique();
             $table->string('display_name');
@@ -40,6 +40,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'permissions');
+        Schema::dropIfExists('permissions');
     }
 }

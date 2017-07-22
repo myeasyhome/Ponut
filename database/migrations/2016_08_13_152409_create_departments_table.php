@@ -22,7 +22,7 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'departments', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
             $table->string('slug', 150)->unique();
@@ -30,7 +30,7 @@ class CreateDepartmentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->index(['slug']);
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -41,6 +41,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'departments');
+        Schema::dropIfExists('departments');
     }
 }

@@ -22,12 +22,12 @@ class CreateJobHiringTeamTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'job_hiring_team', function (Blueprint $table) {
+        Schema::create('job_hiring_team', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('job_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('job_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'jobs')
+            $table->foreign('job_id')->references('id')->on('jobs')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->primary(['user_id', 'job_id']);
         });
@@ -40,6 +40,6 @@ class CreateJobHiringTeamTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'job_hiring_team');
+        Schema::dropIfExists('job_hiring_team');
     }
 }

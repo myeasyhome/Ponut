@@ -22,7 +22,7 @@ class CreateCandidatesTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'candidates', function (Blueprint $table) {
+        Schema::create('candidates', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
             $table->integer('phase_id')->unsigned()->nullable();
@@ -39,11 +39,11 @@ class CreateCandidatesTable extends Migration
             $table->integer('resume_file_id')->unsigned();
             $table->integer('cover_letter_file_id')->unsigned();
             $table->timestamps();
-            $table->foreign('job_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'jobs')->onDelete('cascade');
-            $table->foreign('phase_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'job_phases')->onDelete('cascade');
-            $table->foreign('photo_file_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'files')->onDelete('cascade');
-            $table->foreign('resume_file_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'files')->onDelete('cascade');
-            $table->foreign('cover_letter_file_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'files')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+            $table->foreign('phase_id')->references('id')->on('job_phases')->onDelete('cascade');
+            $table->foreign('photo_file_id')->references('id')->on('files')->onDelete('cascade');
+            $table->foreign('resume_file_id')->references('id')->on('files')->onDelete('cascade');
+            $table->foreign('cover_letter_file_id')->references('id')->on('files')->onDelete('cascade');
         });
     }
 
@@ -54,6 +54,6 @@ class CreateCandidatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'candidates');
+        Schema::dropIfExists('candidates');
     }
 }

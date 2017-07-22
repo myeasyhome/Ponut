@@ -22,14 +22,14 @@ class CreateUsersMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'users_meta', function (Blueprint $table) {
+        Schema::create('users_meta', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
             $table->timestamps();
             $table->index(['user_id', 'me_key']);
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateUsersMetaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'users_meta');
+        Schema::dropIfExists('users_meta');
     }
 }

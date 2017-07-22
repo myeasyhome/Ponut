@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username', 60)->unique();
             $table->string('first_name', 60);
@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->index(['username', 'email']);
-            $table->foreign('avatar_file_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'files')->onDelete('cascade');
+            $table->foreign('avatar_file_id')->references('id')->on('files')->onDelete('cascade');
         });
     }
 
@@ -47,6 +47,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'users');
+        Schema::dropIfExists('users');
     }
 }

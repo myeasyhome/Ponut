@@ -22,7 +22,7 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 60)->unique();
             $table->string('display_name');
@@ -39,6 +39,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'roles');
+        Schema::dropIfExists('roles');
     }
 }

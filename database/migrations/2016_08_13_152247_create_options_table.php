@@ -22,7 +22,7 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'options', function (Blueprint $table) {
+        Schema::create('options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('op_key', 60);
             $table->longText('op_value');
@@ -39,6 +39,6 @@ class CreateOptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'options');
+        Schema::dropIfExists('options');
     }
 }

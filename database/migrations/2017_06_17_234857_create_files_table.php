@@ -22,7 +22,7 @@ class CreateFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'files', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
             $table->string('storage_type', 50);
             $table->string('rel_path', 200);
@@ -35,7 +35,7 @@ class CreateFilesTable extends Migration
             $table->string('file_type', 50);
             $table->string('size', 50);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -46,6 +46,6 @@ class CreateFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'files');
+        Schema::dropIfExists('files');
     }
 }

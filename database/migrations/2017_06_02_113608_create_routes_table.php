@@ -22,7 +22,7 @@ class CreateRoutesTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'routes', function (Blueprint $table) {
+        Schema::create('routes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('method');
@@ -31,7 +31,7 @@ class CreateRoutesTable extends Migration
             $table->integer('permission_id')->unsigned()->nullable();
             $table->enum('enabled', ['on', 'off']);
             $table->timestamps();
-            $table->foreign('permission_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'permissions')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -42,6 +42,6 @@ class CreateRoutesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'routes');
+        Schema::dropIfExists('routes');
     }
 }

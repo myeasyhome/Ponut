@@ -22,14 +22,14 @@ class CreateDepartmentsMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create(env('DB_TABLES_PREFIX', '') . 'departments_meta', function (Blueprint $table) {
+        Schema::create('departments_meta', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('department_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
             $table->timestamps();
             $table->index(['department_id', 'me_key']);
-            $table->foreign('department_id')->references('id')->on(env('DB_TABLES_PREFIX', '') . 'departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 
@@ -40,6 +40,6 @@ class CreateDepartmentsMetaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(env('DB_TABLES_PREFIX', '') . 'departments_meta');
+        Schema::dropIfExists('departments_meta');
     }
 }
