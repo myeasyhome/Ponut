@@ -34,7 +34,7 @@ class Setup implements SetupContract
             if (\DB::connection()->getDatabaseName()){
 
                 $tables_exists = true;
-                $tables_exists &= (boolean) \Schema::hasTable(env('DB_TABLES_PREFIX', '') . 'options');
+                $tables_exists &= (boolean) \Schema::hasTable('options');
 
                 if ($tables_exists){
                     $step += 1;
@@ -79,7 +79,7 @@ class Setup implements SetupContract
     public function runSecondSetupStep($site_title, $site_email, $site_url)
     {
         $options = $this->getInitOptions($site_title, $site_email, $site_url);
-        return (boolean) \DB::table(env('DB_TABLES_PREFIX', '') . 'options')->insert($options);
+        return (boolean) \DB::table('options')->insert($options);
     }
 
     /**

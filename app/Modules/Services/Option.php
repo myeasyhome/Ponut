@@ -88,7 +88,7 @@ class Option implements OptionContract
      */
     public function insertOptions($options_data)
     {
-        return (boolean) \DB::table(env('DB_TABLES_PREFIX', '') . 'options')->insert($options_data);
+        return (boolean) \DB::table('options')->insert($options_data);
 
     }
 

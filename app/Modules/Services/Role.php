@@ -151,7 +151,7 @@ class Role implements RoleContract
             return true;
         }
 
-        return (boolean) \DB::table(env('DB_TABLES_PREFIX', '') . 'permission_role')->insert($data);
+        return (boolean) \DB::table('permission_role')->insert($data);
     }
 
     /**
