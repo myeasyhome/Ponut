@@ -18,7 +18,9 @@ class User extends Model
     use Notifiable;
 
     protected $table = 'users';
+
     public $timestamps = true;
+
     protected $hidden = [
         'password', 'remember_token',
     ];
