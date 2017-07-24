@@ -27,7 +27,6 @@ class CreateOptionsTable extends Migration
             $table->string('op_key', 60);
             $table->longText('op_value');
             $table->enum('autoload', ['on', 'off']);
-            $table->timestamps();
             $table->index(['op_key', 'autoload']);
         });
     }

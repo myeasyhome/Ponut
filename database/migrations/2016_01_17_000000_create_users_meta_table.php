@@ -27,7 +27,6 @@ class CreateUsersMetaTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
-            $table->timestamps();
             $table->index(['user_id', 'me_key']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

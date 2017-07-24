@@ -27,7 +27,6 @@ class CreateDepartmentsMetaTable extends Migration
             $table->integer('department_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
-            $table->timestamps();
             $table->index(['department_id', 'me_key']);
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });

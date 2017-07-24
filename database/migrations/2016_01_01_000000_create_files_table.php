@@ -24,9 +24,8 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('storage_type', 50);
             $table->string('rel_path', 200);
-            $table->integer('user_id')->unsigned();
+            $table->string('storage_type', 50);
             $table->integer('year');
             $table->integer('month');
             $table->string('new_name', 200);
@@ -34,7 +33,7 @@ class CreateFilesTable extends Migration
             $table->string('extension', 50);
             $table->string('file_type', 50);
             $table->string('size', 50);
-            $table->timestamps();
+            $table->dateTime('created_at');
         });
     }
 

@@ -27,7 +27,6 @@ class CreateJobsMetaTable extends Migration
             $table->integer('job_id')->unsigned();
             $table->string('me_key', 60);
             $table->text('me_value');
-            $table->timestamps();
             $table->index(['job_id', 'me_key']);
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
         });
