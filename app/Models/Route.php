@@ -16,4 +16,9 @@ class Route extends Model
 {
     protected $table = 'routes';
     public $timestamps = true;
+
+    public function permission()
+    {
+        return $this->belongsTo('Ponut\Models\Permission', 'permission_id', 'id');
+    }
 }
