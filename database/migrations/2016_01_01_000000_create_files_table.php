@@ -35,7 +35,6 @@ class CreateFilesTable extends Migration
             $table->string('file_type', 50);
             $table->string('size', 50);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

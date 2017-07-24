@@ -27,8 +27,8 @@ class CreateJobsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('department_id')->unsigned();
-            $table->string('title', 200);
-            $table->string('slug', 250)->unique();
+            $table->string('title', 100);
+            $table->string('slug', 150)->unique();
             $table->string('country', 50);
             $table->string('zipcode', 50);
             $table->enum('remote_job', ['yes', 'no']);

@@ -32,11 +32,9 @@ class CreateUsersTable extends Migration
             $table->string('job_title');
             $table->string('password');
             $table->string('status', 20);
-            $table->integer('avatar_file_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->index(['username', 'email']);
-            $table->foreign('avatar_file_id')->references('id')->on('files')->onDelete('cascade');
         });
     }
 
