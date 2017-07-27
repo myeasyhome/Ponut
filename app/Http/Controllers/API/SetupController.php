@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Http\Controllers\Web;
+namespace Ponut\Http\Controllers\API;
 
 use Ponut\Http\Controllers\Controller;
 use Ponut\Models\Option;
