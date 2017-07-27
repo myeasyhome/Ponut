@@ -28,13 +28,19 @@ class Option implements OptionContract
      */
     public function autoloadOptions($autoload)
     {
-        $options = OptionModel::where('autoload', $autoload)->get()->toArray();
+        try {
+            $options = OptionModel::where('autoload', $autoload)->get()->toArray();
 
-        foreach ($options as $option) {
-            $this->options[$option['op_key']] = $option['op_value'];
+            foreach ($options as $option) {
+                $this->options[$option['op_key']] = $option['op_value'];
+            }
+
+            return (boolean)(count($this->options) > 0);
+        } catch (\Exception $e) {
+
+            return false;
+
         }
-
-        return (boolean)(count($this->options) > 0);
     }
 
     /**
