@@ -26,4 +26,9 @@ class Department extends Model
     {
         return $this->hasMany('Ponut\Models\Job', 'department_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('Ponut\Models\User', 'user_id', 'id');
+    }
 }
