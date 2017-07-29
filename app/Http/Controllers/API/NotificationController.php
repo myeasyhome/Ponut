@@ -22,27 +22,15 @@ class NotificationController extends Controller
 {
 
     /**
-     * Notify User Action
+     * Notify User
      *
      * @return string
      */
-	public function notifyAction()
+	public function notify()
 	{
-		if( empty($this->auth_user) ){
-	        return response()->json([
-	            'status' => 'success',
-	            'message' => '',
-	            'data' => [],
-	        ]);
-		}
 
 		$message = $this->notify->getNotifications($this->auth_user->id);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => $message,
-            'data' => [],
-        ]);
-
+		#~ Send Notifications
 	}
 }
