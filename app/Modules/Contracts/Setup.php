@@ -12,6 +12,7 @@ namespace Ponut\Modules\Contracts;
 
 interface Setup {
 
+	public function getAppStatus();
 	public function detectSetupStep();
 	public function runSecondSetupStep($site_title, $site_email, $site_url);
 	public function runThirdSetupStep($admin_username, $admin_email, $admin_password);
@@ -20,4 +21,5 @@ interface Setup {
 	public function countUsers();
 	public function getInitOptions($site_title, $site_email, $site_url);
 
+	public function healthCheck();
 }

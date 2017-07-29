@@ -20,6 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['as' => 'api.', 'prefix' => '/'], function () {
 
-	Route::post( 'test', ['as' => 'test', 'uses' => 'API\TestController@test'] );
+	# Action specific endpoints
+	Route::post( 'action/setup/options', ['as' => 'action.setup.options', 'uses' => 'API\SetupController@siteOptions'] );
+	Route::post( 'action/setup/admin', ['as' => 'action.setup.admin', 'uses' => 'API\SetupController@siteAdmin'] );
+
 
 });

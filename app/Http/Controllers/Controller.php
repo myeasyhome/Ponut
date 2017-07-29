@@ -36,7 +36,7 @@ class Controller extends BaseController
     private $response = [
     	"success" => false,
     	"payload" => [],
-    	"message" => []
+    	"messages" => []
     ];
 
     protected $analytics;
@@ -87,7 +87,17 @@ class Controller extends BaseController
         $this->request = $request;
         $this->route = $route;
 
-        $this->option->autoloadOptions('on');
+        if( !$this->option->autoloadOptions('on') ){
+            // DB May be Down or APP first Run
+            $app_status = $this->setup->getAppStatus();
+
+            if( "DB_CONNECTION_ERROR" == $app_status ){
+                // Send to Server Error Page
+            }elseif( "NOT_INSTALLED" == $app_status ){
+                // Send to Installation Page
+            }
+
+        }
         $this->plugin->setOption($this->option);
         $this->appearance->setOption($this->option);
     }
@@ -101,7 +111,7 @@ class Controller extends BaseController
      */
     protected function updateResponseStatus($status)
     {
-    	$this->response['success'] = $status;
+    	$this->response['success'] = (boolean) $status;
     }
 
     /**
@@ -125,12 +135,37 @@ class Controller extends BaseController
     /**
      * Update Response Message
      *
-     * @param array $message
+     * @param array $messages
+     * @param string $type
      * @return void
      */
-    protected function updateResponseMessage($message)
+    protected function updateResponseMessages($messages, $type = "plain")
     {
-    	$this->response["message"] = $message;
+        if( $type == 'plain' ){
+
+    	   $this->response["messages"] = $messages;
+
+        }elseif( $type == 'validation' ) {
+
+            $formatted_messages = [];
+
+            foreach ($messages as $field_name => $errors) {
+
+                foreach ($errors as $error) {
+                    $formatted_messages[] = [
+                        "type" => "error",
+                        "field_id" => $field_name,
+                        "message" => $error
+                    ];
+                }
+
+            }
+
+            $this->response["messages"] = [
+                "code" => "validation_errors",
+                "messages" => $formatted_messages
+            ];
+        }
     }
 
     /**

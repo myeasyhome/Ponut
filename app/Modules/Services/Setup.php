@@ -20,6 +20,24 @@ class Setup implements SetupContract
 {
     use DispatchesJobs;
 
+    public function getAppStatus()
+    {
+        try {
+            if (\DB::connection()->getDatabaseName()){
+
+                if( \Schema::hasTable('options') ){
+                    return "INSTALLED_OR_NO_RECORDS";
+                }else{
+                    return "NOT_INSTALLED";
+                }
+            }else{
+                return $step;
+            }
+        } catch (\Exception $e) {
+            return "DB_CONNECTION_ERROR";
+        }
+    }
+
     /**
      * Get Current Installation Step
      *
@@ -158,5 +176,10 @@ class Setup implements SetupContract
             [ 'op_key' => '_site_enabled_theme', 'op_value' => 'default', 'autoload' => 'on' ],
             [ 'op_key' => '_site_appearance_customize', 'op_value' => serialize(['font' => 'bitter', 'skin' => 'default']), 'autoload' => 'on' ],
         ];
+    }
+
+    public function healthCheck()
+    {
+        //~
     }
 }
