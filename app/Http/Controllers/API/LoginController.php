@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function authAction()
+    public function auth()
     {
         $validator = Validator::make($this->request->all(), [
             'username' => 'required',
@@ -48,11 +48,18 @@ class LoginController extends Controller
             $result = (boolean) Auth::attempt(['username' => $this->request->input('username'), 'password' => $this->request->input('password'), 'status' => 'active'], $this->request->input('remember'));
         }
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.login_success_message')]] : ["form" => [trans('messages.login_error_message')]],
-            'data' => [],
-        ]);
 
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.login_success_message') : trans('messages.login_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 }
