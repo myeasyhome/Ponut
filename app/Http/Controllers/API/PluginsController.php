@@ -22,7 +22,7 @@ class PluginsController extends Controller
 {
 
     /**
-     * Activate Plugin Action
+     * Activate Plugin
      *
      * @return string
      */
@@ -42,15 +42,22 @@ class PluginsController extends Controller
 
         $result = $this->plugin->activatePlugin($this->request->input('plugin'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.activate_plugin_success_message')]] : ["form" => [trans('messages.activate_plugin_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.activate_plugin_success_message') : trans('messages.activate_plugin_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
 	}
 
     /**
-     * Deactivate Plugin Action
+     * Deactivate Plugin
      *
      * @return string
      */
@@ -70,15 +77,22 @@ class PluginsController extends Controller
 
         $result = $this->plugin->deactivatePlugin($this->request->input('plugin'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.deactivate_plugin_success_message')]] : ["form" => [trans('messages.deactivate_plugin_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.deactivate_plugin_success_message') : trans('messages.deactivate_plugin_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
 	}
 
     /**
-     * Delete Plugin Action
+     * Delete Plugin
      *
      * @return string
      */
@@ -98,10 +112,17 @@ class PluginsController extends Controller
 
         $result = $this->plugin->deletePlugin($this->request->input('plugin'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_plugin_success_message')]] : ["form" => [trans('messages.delete_plugin_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_plugin_success_message') : trans('messages.delete_plugin_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 }
