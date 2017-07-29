@@ -26,8 +26,8 @@ class UsersController extends Controller
      *
      * @return string
      */
-	public function addUser()
-	{
+    public function addUser()
+    {
         $validator = Validator::make($this->request->all(), [
             'username' => 'required|username|unique:users,username',
             'first_name' => 'required',
@@ -70,20 +70,27 @@ class UsersController extends Controller
             'status' => $this->request->input('status')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.add_user_success_message')]] : ["form" => [trans('messages.add_user_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.add_user_success_message') : trans('messages.add_user_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
      * Edit User
      *
      * @return string
      */
-	public function editUser()
-	{
+    public function editUser()
+    {
         $inputs = [
             'id' => 'required|integer',
             'username' => 'required|username',
@@ -123,20 +130,36 @@ class UsersController extends Controller
         }
 
         if( $this->user->checkUsername($this->request->input('username'), $this->request->input('id')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.edit_user_error_username_unique')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "username",
+                        "message" => trans('messages.edit_user_error_username_unique')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
 
         if( $this->user->checkEmail($this->request->input('email'), $this->request->input('id')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.edit_user_error_email_unique')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "email",
+                        "message" => trans('messages.edit_user_error_email_unique')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         if( $this->request->has('change_password') ){
@@ -170,20 +193,27 @@ class UsersController extends Controller
 
         }
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.edit_user_success_message')]] : ["form" => [trans('messages.edit_user_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.edit_user_success_message') : trans('messages.edit_user_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
      * Delete User
      *
      * @return string
      */
-	public function deleteUser()
-	{
+    public function deleteUser()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
         ], [
@@ -201,10 +231,17 @@ class UsersController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_user_success_message')]] : ["form" => [trans('messages.delete_user_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_user_success_message') : trans('messages.delete_user_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 }
