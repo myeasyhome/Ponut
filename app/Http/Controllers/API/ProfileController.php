@@ -26,7 +26,7 @@ class ProfileController extends Controller
      *
      * @return string
      */
-	public function updateProfileAction()
+	public function updateProfile()
 	{
         $validator = Validator::make($this->request->all(), [
             'username' => 'required|username|max:30',
@@ -60,20 +60,36 @@ class ProfileController extends Controller
 
         // check if username is not valid
         if( $this->user->countUsersBy([['id', '!=', $this->auth_user->id], ['username', '=', $this->request->input('username')]]) ){
-	        return response()->json([
-	            'status' => 'error',
-	            'messages' => ["form" => [trans('messages.profile_update_error_username_notvalid')]],
-	            'data' => [],
-	        ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "username",
+                        "message" => trans('messages.profile_update_error_username_notvalid')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         // check if email is not valid
         if( $this->user->countUsersBy([['id', '!=', $this->auth_user->id], ['email', '=', $this->request->input('email')]]) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.profile_update_error_email_notvalid')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "email",
+                        "message" => trans('messages.profile_update_error_email_notvalid')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = (boolean) $this->user->updateUser([
@@ -87,11 +103,18 @@ class ProfileController extends Controller
             'job_title' => $this->request->input('job_title'),
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.profile_update_success_message')]] : ["form" => [trans('messages.profile_update_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.profile_update_success_message') : trans('messages.profile_update_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
 	}
 
     /**
@@ -99,9 +122,8 @@ class ProfileController extends Controller
      *
      * @return string
      */
-	public function updatePasswordAction()
+	public function updatePassword()
 	{
-        $this->auth_user = Auth::user();
         $user_id = $this->auth_user->id;
 
         $validator = Validator::make($this->request->all(), [
@@ -121,11 +143,20 @@ class ProfileController extends Controller
 
         // check if old password is valid
 		if ( !$this->user->checkOldPassword($this->auth_user->id, $this->request->input('old_password')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.profile_update_error_old_password_notvalid')]],
-                'data' => [],
-            ]);
+
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "old_password",
+                        "message" => trans('messages.profile_update_error_old_password_notvalid')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
 		}
 
         $result = (boolean) $this->user->updateUser([
@@ -134,10 +165,17 @@ class ProfileController extends Controller
             'password' => \Hash::make($this->request->input('new_password')),
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.profile_password_update_success_message')]] : ["form" => [trans('messages.profile_password_update_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.profile_password_update_success_message') : trans('messages.profile_password_update_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
 	}
 }
