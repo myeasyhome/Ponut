@@ -20,33 +20,34 @@ use Illuminate\Support\Facades\View;
 
 class CandidatesController extends Controller
 {
+
     /**
      * Add Candidate
      *
      * @return string
      */
-	public function addCandidate()
-	{
-		//~
-	}
+    public function addCandidate()
+    {
+        //~
+    }
 
     /**
      * Edit Candidate
      *
      * @return string
      */
-	public function editCandidate()
-	{
+    public function editCandidate()
+    {
         //~
-	}
+    }
 
     /**
      * Delete Candidate
      *
      * @return string
      */
-	public function deleteCandidate()
-	{
+    public function deleteCandidate()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
         ], [
@@ -64,10 +65,17 @@ class CandidatesController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_candidate_success_message')]] : ["form" => [trans('messages.delete_candidate_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_candidate_success_message') : trans('messages.delete_candidate_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 }
