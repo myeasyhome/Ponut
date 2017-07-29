@@ -27,7 +27,7 @@ class FpwdController extends Controller
      *
      * @return string
      */
-    public function tokenAction(Request $request)
+    public function generateToken(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required|username_or_email',
@@ -49,29 +49,52 @@ class FpwdController extends Controller
             if( $this->user->checkEmail($username) ){
                 $result = $this->user->resetRequestWithEmail($username);
             }else{
-                return response()->json([
-                    'status' => 'error',
-                    'messages' => ["username" => [trans('messages.forgot_password_form_username_username_or_email_invalid')]],
-                    'data' => [],
-                ]);
+                $this->updateResponseStatus(false);
+                $this->updateResponseMessage([
+                    "code" => "validation_errors",
+                    "messages" => [
+                        [
+                            "type" => "error",
+                            "field_id" => "username",
+                            "message" => trans('messages.forgot_password_form_username_username_or_email_invalid')
+                        ]
+                    ]
+                ], "plain");
+
+                return response()->json($this->getResponse());
             }
         }else{
             if( $this->user->checkUsername($username) ){
                 $result = $this->user->resetRequestWithUsername($username);
             }else{
-                return response()->json([
-                    'status' => 'error',
-                    'messages' => ["username" => [trans('messages.forgot_password_form_username_username_or_email_invalid')]],
-                    'data' => [],
-                ]);
+                $this->updateResponseStatus(false);
+                $this->updateResponseMessage([
+                    "code" => "validation_errors",
+                    "messages" => [
+                        [
+                            "type" => "error",
+                            "field_id" => "username",
+                            "message" => trans('messages.forgot_password_form_username_username_or_email_invalid')
+                        ]
+                    ]
+                ], "plain");
+
+                return response()->json($this->getResponse());
             }
         }
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.forgot_password_reset_email_sent')]] : ["form" => [trans('messages.database_error_form')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.forgot_password_reset_email_sent') : trans('messages.database_error_form')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 
     /**
@@ -79,7 +102,7 @@ class FpwdController extends Controller
      *
      * @return string
      */
-    public function resetAction(Request $request)
+    public function resetPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'password' => 'required|password',
@@ -102,19 +125,34 @@ class FpwdController extends Controller
         $result = false;
 
         if( !$this->user->isHashValid($reset_hash) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["reset_hash" => [trans('messages.reset_password_form_token_expired_message')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "reset_hash",
+                        "message" => trans('messages.reset_password_form_token_expired_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->user->setNewPassword($reset_hash, $new_password);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.reset_password_pasword_changed')]] : ["form" => [trans('messages.database_error_form')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.reset_password_pasword_changed') : trans('messages.database_error_form')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 }
