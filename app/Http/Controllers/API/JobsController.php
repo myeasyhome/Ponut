@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\View;
 
 class JobsController extends Controller
 {
+
     /**
      * Add Job
      *
@@ -64,15 +65,24 @@ class JobsController extends Controller
 
         # Add Job Fields
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.add_job_success_message')]] : ["form" => [trans('messages.add_job_error_message')]],
-            'data' => [],
-        ]);
+
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.add_job_success_message') : trans('messages.add_job_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+
 	}
 
     /**
-     * Edit Job Action
+     * Edit Job
      *
      * @return string
      */
@@ -82,7 +92,7 @@ class JobsController extends Controller
 	}
 
     /**
-     * Delete Job Action
+     * Delete Job
      *
      * @return string
      */
@@ -105,10 +115,17 @@ class JobsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_job_success_message')]] : ["form" => [trans('messages.delete_job_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_job_success_message') : trans('messages.delete_job_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
 	}
 }
