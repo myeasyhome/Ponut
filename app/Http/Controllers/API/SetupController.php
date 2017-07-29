@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\View;
 class SetupController extends Controller
 {
 
+    /**
+     * Site Options Setup Step
+     *
+     * @return string
+     */
     public function siteOptions()
     {
         $validator = Validator::make($this->request->all(), [
@@ -63,6 +68,11 @@ class SetupController extends Controller
 
     }
 
+    /**
+     * Site Admin Setup Step
+     *
+     * @return string
+     */
     public function siteAdmin()
     {
         $validator = Validator::make($this->request->all(), [
