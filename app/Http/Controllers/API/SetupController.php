@@ -94,7 +94,6 @@ class SetupController extends Controller
             $this->notify->pushThankYouNotification($result);
         }
 
-
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
             "code" => ($result) ? 'success' : 'db_error',
