@@ -43,11 +43,19 @@ class DepartmentsController extends Controller
         }
 
         if( $this->department->slugExist($this->request->input('slug')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.add_department_error_slug_exist')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "slug",
+                        "message" => trans('messages.add_department_error_slug_exist')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->department->insertDepartment([
@@ -55,11 +63,18 @@ class DepartmentsController extends Controller
             'slug' => $this->request->input('slug')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.add_department_success_message')]] : ["form" => [trans('messages.add_department_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.add_department_success_message') : trans('messages.add_department_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 
     /**
@@ -86,11 +101,19 @@ class DepartmentsController extends Controller
         }
 
         if( $this->department->slugExist($this->request->input('slug'), $this->request->input('id')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.edit_department_error_slug_exist')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "slug",
+                        "message" => trans('messages.edit_department_error_slug_exist')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->department->updateDepartment([
@@ -100,11 +123,18 @@ class DepartmentsController extends Controller
             'slug' => $this->request->input('slug')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.edit_department_success_message')]] : ["form" => [trans('messages.edit_department_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.edit_department_success_message') : trans('messages.edit_department_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 
     /**
@@ -130,11 +160,18 @@ class DepartmentsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_department_success_message')]] : ["form" => [trans('messages.delete_department_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_department_success_message') : trans('messages.delete_department_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 
     /**
@@ -156,12 +193,15 @@ class DepartmentsController extends Controller
             return response()->json($this->getResponse());
         }
 
-        return response()->json([
-            'status' => 'success',
-            'messages' => ["form" => [trans('messages.build_department_slug_success_message')]],
-            'data' => [
-                'slug' => $this->department->buildSlug($this->request->input('name'))
-            ],
-        ]);
+
+        $this->updateResponseStatus(true);
+        $this->updateResponseMessage([
+            "code" => "success"
+        ], "plain");
+        $this->updateResponsePayload([
+            'slug' => $this->department->buildSlug($this->request->input('name'))
+        ], false);
+
+        return response()->json($this->getResponse());
     }
 }
