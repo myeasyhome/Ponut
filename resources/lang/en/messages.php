@@ -274,4 +274,15 @@ return [
     'delete_candidate_error_id_integer' => 'Error! Invalid Request.',
     'delete_candidate_success_message' => 'Candidate deleted successfully.',
     'delete_candidate_error_message' => 'Oops! Something Goes Wrong.',
+
+
+    // 404.blade.php
+    "error_404_head" => "Page Not Found",
+    "error_404_main" => "Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.",
+    "error_404_button" => "Go back to dashboard",
+
+    // 503.blade.php
+    "error_503_head" => "Internal Server Error",
+    "error_503_main" => "The server encountered something unexpected that didn't allow it to complete the request. We apologize.",
+    "error_503_button" => "Go back to dashboard",
 ];
