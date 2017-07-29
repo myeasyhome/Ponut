@@ -22,12 +22,12 @@ class AppearanceController extends Controller
 {
 
     /**
-     * Activate Theme Action
+     * Activate Theme
      *
      * @return string
      */
-	public function activateTheme()
-	{
+    public function activateTheme()
+    {
         $validator = Validator::make($this->request->all(), [
             'theme' => 'required'
         ], [
@@ -42,20 +42,27 @@ class AppearanceController extends Controller
 
         $result = $this->appearance->activateTheme($this->request->input('theme'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.activate_theme_success_message')]] : ["form" => [trans('messages.activate_theme_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.activate_theme_success_message') : trans('messages.activate_theme_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Delete Theme Action
+     * Delete Theme
      *
      * @return string
      */
-	public function deleteTheme()
-	{
+    public function deleteTheme()
+    {
         $validator = Validator::make($this->request->all(), [
             'theme' => 'required'
         ], [
@@ -70,20 +77,27 @@ class AppearanceController extends Controller
 
         $result = $this->appearance->deleteTheme($this->request->input('theme'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_theme_success_message')]] : ["form" => [trans('messages.delete_theme_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_theme_success_message') : trans('messages.delete_theme_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Customize Theme Action
+     * Customize Theme
      *
      * @return string
      */
-	public function customizeTheme()
-	{
+    public function customizeTheme()
+    {
         $validator = Validator::make($this->request->all(), [
             'font' => 'required',
             'skin' => 'required'
@@ -99,14 +113,21 @@ class AppearanceController extends Controller
         }
 
         $result = $this->appearance->customize([
-        	'font' => $this->request->input('font'),
-        	'skin' => $this->request->input('skin')
+            'font' => $this->request->input('font'),
+            'skin' => $this->request->input('skin')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.customize_theme_success_message')]] : ["form" => [trans('messages.customize_theme_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.customize_theme_success_message') : trans('messages.customize_theme_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 }
