@@ -22,12 +22,12 @@ class SettingsController extends Controller
 {
 
     /**
-     * Update General Settings Action
+     * Update General Settings
      *
      * @return string
      */
-	public function updateGeneralSettingsAction()
-	{
+    public function updateGeneralSettings()
+    {
         $validator = Validator::make($this->request->all(), [
             '_site_title' => 'required',
             '_site_email' => 'required',
@@ -72,45 +72,59 @@ class SettingsController extends Controller
             '_site_tracking_codes' => (empty($this->request->input('_site_tracking_codes'))) ? '' : $this->request->input('_site_tracking_codes'),
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.update_general_settings_success_message')]] : ["form" => [trans('messages.update_general_settings_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.update_general_settings_success_message') : trans('messages.update_general_settings_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Update Advanced Settings Action
+     * Update Advanced Settings
      *
      * @return string
      */
-	public function updateAdvancedSettingsAction()
-	{
+    public function updateAdvancedSettings()
+    {
         //~
-	}
+    }
 
     /**
-     * Update Routes Action
+     * Update Routes
      *
      * @return string
      */
-	public function updateRoutesAction()
-	{
+    public function updateRoutes()
+    {
         $result = $this->route->syncRoute();
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.update_routes_success_message')]] : ["form" => [trans('messages.update_routes_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.update_routes_success_message') : trans('messages.update_routes_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Delete Route Action
+     * Delete Route
      *
      * @return string
      */
-    public function deleteRouteAction()
+    public function deleteRoute()
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
@@ -129,20 +143,27 @@ class SettingsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_route_success_message')]] : ["form" => [trans('messages.delete_route_error_message')]],
-            'data' => [],
-        ]);
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_route_success_message') : trans('messages.delete_route_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
     }
 
     /**
-     * Update Route Permission Action
+     * Update Route Permission
      *
      * @return string
      */
-	public function updateRoutePermissionAction()
-	{
+    public function updateRoutePermission()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer',
             'permission_id' => 'required',
@@ -167,20 +188,27 @@ class SettingsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.update_route_permission_success_message')]] : ["form" => [trans('messages.update_route_permission_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.update_route_permission_success_message') : trans('messages.update_route_permission_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Add Role Action
+     * Add Role
      *
      * @return string
      */
-	public function addRoleAction()
-	{
+    public function addRole()
+    {
         $validator = Validator::make($this->request->all(), [
             'name' => 'required',
             'display_name' => 'required'
@@ -196,11 +224,19 @@ class SettingsController extends Controller
         }
 
         if( $this->role->checkRole($this->request->input('name')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.add_role_error_name_unique')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "name",
+                        "message" => trans('messages.add_role_error_name_unique')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->role->addRole([
@@ -212,20 +248,27 @@ class SettingsController extends Controller
         # Add Roles Permissions
         $this->role->addRolePermissions($this->request->input('name'), $this->request->input('permissions'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.add_role_success_message')]] : ["form" => [trans('messages.add_role_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.add_role_success_message') : trans('messages.add_role_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Edit Role Action
+     * Edit Role
      *
      * @return string
      */
-	public function editRoleAction()
-	{
+    public function editRole()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required',
             'name' => 'required',
@@ -243,11 +286,19 @@ class SettingsController extends Controller
         }
 
         if( $this->role->checkRole($this->request->input('name'), $this->request->input('id')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.edit_role_error_name_unique')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "name",
+                        "message" => trans('messages.edit_role_error_name_unique')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->role->editRole([
@@ -261,20 +312,27 @@ class SettingsController extends Controller
         # Edit Role Permissions
         $this->role->updateRolePermissions($this->request->input('name'), $this->request->input('permissions'));
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.edit_role_success_message')]] : ["form" => [trans('messages.edit_role_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.edit_role_success_message') : trans('messages.edit_role_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Delete Role Action
+     * Delete Role
      *
      * @return string
      */
-	public function deleteRoleAction()
-	{
+    public function deleteRole()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
         ], [
@@ -292,20 +350,27 @@ class SettingsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_role_success_message')]] : ["form" => [trans('messages.delete_role_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_role_success_message') : trans('messages.delete_role_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Add Permission Action
+     * Add Permission
      *
      * @return string
      */
-	public function addPermissionAction()
-	{
+    public function addPermission()
+    {
         $validator = Validator::make($this->request->all(), [
             'name' => 'required',
             'display_name' => 'required'
@@ -321,11 +386,19 @@ class SettingsController extends Controller
         }
 
         if( $this->permission->checkPermission($this->request->input('name')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.add_permission_error_name_unique')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "name",
+                        "message" => trans('messages.add_permission_error_name_unique')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->permission->addPermission([
@@ -334,20 +407,27 @@ class SettingsController extends Controller
             'description' => empty($this->request->input('description')) ? '' : $this->request->input('description')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.add_permission_success_message')]] : ["form" => [trans('messages.add_permission_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.add_permission_success_message') : trans('messages.add_permission_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Edit Permission Action
+     * Edit Permission
      *
      * @return string
      */
-	public function editPermissionAction()
-	{
+    public function editPermission()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required',
             'name' => 'required',
@@ -365,11 +445,19 @@ class SettingsController extends Controller
         }
 
         if( $this->permission->checkPermission($this->request->input('name'), $this->request->input('id')) ){
-            return response()->json([
-                'status' => 'error',
-                'messages' => ["form" => [trans('messages.edit_permission_error_name_unique')]],
-                'data' => [],
-            ]);
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => "validation_errors",
+                "messages" => [
+                    [
+                        "type" => "error",
+                        "field_id" => "name",
+                        "message" => trans('messages.edit_permission_error_name_unique')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
         }
 
         $result = $this->permission->editPermission([
@@ -380,20 +468,27 @@ class SettingsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.edit_permission_success_message')]] : ["form" => [trans('messages.edit_permission_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.edit_permission_success_message') : trans('messages.edit_permission_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 
     /**
-     * Delete Permission Action
+     * Delete Permission
      *
      * @return string
      */
-	public function deletePermissionAction()
-	{
+    public function deletePermission()
+    {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
         ], [
@@ -411,10 +506,17 @@ class SettingsController extends Controller
             'id' => $this->request->input('id')
         ]);
 
-        return response()->json([
-            'status' => ($result) ? 'success' : 'error',
-            'messages' => ($result) ? ["form" => [trans('messages.delete_permission_success_message')]] : ["form" => [trans('messages.delete_permission_error_message')]],
-            'data' => [],
-        ]);
-	}
+        $this->updateResponseStatus($result);
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.delete_permission_success_message') : trans('messages.delete_permission_error_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
 }
