@@ -176,9 +176,6 @@ return [
         // Ponut\Providers\BroadcastServiceProvider::class,
         Ponut\Providers\EventServiceProvider::class,
         Ponut\Providers\RouteServiceProvider::class,
-
-        Laravel\Passport\PassportServiceProvider::class,
-
     ],
 
     /*

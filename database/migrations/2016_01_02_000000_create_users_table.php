@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('job_title');
             $table->string('password');
             $table->string('status', 20);
+            $table->string('api_token',150)->unique();
             $table->rememberToken();
             $table->timestamps();
             $table->index(['username', 'email']);
