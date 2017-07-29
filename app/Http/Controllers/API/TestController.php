@@ -30,10 +30,9 @@ class TestController extends Controller
 
 		$this->updateResponseMessage([
     		"code" => 1024,
-    		"message" => "Validation Failed",
-    		"errors" => [
+    		"messages" => [
     			[
-    				"code" => 5432,
+                    "type" => "error",
     				"field" => "first_name",
     				"message" => "First name cannot have fancy characters"
     			],

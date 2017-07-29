@@ -42,22 +42,22 @@ class SetupController extends Controller
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
-			$this->updateResponseMessage($validator->errors(), "validation");
+            $this->updateResponseMessage($validator->errors(), "validation");
             return response()->json($this->getResponse());
         }
 
         $result = $this->setup->runSecondSetupStep($this->request->input('site_title'), $this->request->input('site_email'), $this->request->input('site_url'));
 
         $this->updateResponseStatus($result);
-		$this->updateResponseMessage([
-    		"code" => ($result) ? 'success' : 'db_error',
-    		"messages" => [
-    			[
-    				"type" => ($result) ? 'success' : 'error',
-    				"message" =>  ($result) ? trans('messages.setup_step_2_success') : trans('messages.database_error_form')
-    			]
-    		]
-    	], "plain");
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.setup_step_2_success') : trans('messages.database_error_form')
+                ]
+            ]
+        ], "plain");
 
         return response()->json($this->getResponse());
 
@@ -84,7 +84,7 @@ class SetupController extends Controller
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
-			$this->updateResponseMessage($validator->errors(), "validation");
+            $this->updateResponseMessage($validator->errors(), "validation");
             return response()->json($this->getResponse());
         }
 
@@ -96,15 +96,15 @@ class SetupController extends Controller
 
 
         $this->updateResponseStatus($result);
-		$this->updateResponseMessage([
-    		"code" => ($result) ? 'success' : 'db_error',
-    		"messages" => [
-    			[
-    				"type" => ($result) ? 'success' : 'error',
-    				"message" =>  ($result) ? trans('messages.setup_step_3_success') : trans('messages.database_error_form')
-    			]
-    		]
-    	], "plain");
+        $this->updateResponseMessage([
+            "code" => ($result) ? 'success' : 'db_error',
+            "messages" => [
+                [
+                    "type" => ($result) ? 'success' : 'error',
+                    "message" =>  ($result) ? trans('messages.setup_step_3_success') : trans('messages.database_error_form')
+                ]
+            ]
+        ], "plain");
 
         return response()->json($this->getResponse());
     }

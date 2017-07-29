@@ -11,87 +11,67 @@
 namespace Ponut\Http\Controllers\Web;
 
 use Ponut\Http\Controllers\Controller;
-use Ponut\Models\Option;
+
 use Validator;
 use Input;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
-class HomeController extends Controller
+class DepartmentsController extends Controller
 {
 
     /**
-     * Home Page Render
+     * Departments List Page Render
      *
      * @return string
      */
     public function indexRender()
     {
-        return view('guest.home', [
+        return view('admin.departments-all', [
             'page_title' =>  $this->option->getOption('_site_title'),
             'shared_data' => $this->getsSharedData(),
         ]);
     }
 
     /**
-     * 404 Page Render
+     * Departments Add Page Render
      *
      * @return string
      */
-    public function notfoundRender()
+    public function addRender()
     {
-        return view('errors.404', [
+        return view('admin.departments-add', [
             'page_title' =>  $this->option->getOption('_site_title'),
             'shared_data' => $this->getsSharedData(),
         ]);
     }
 
     /**
-     * 503 Page Render
+     * Departments Edit Page Render
      *
+     * @param integer $id
      * @return string
      */
-    public function errorRender()
+    public function editRender($id)
     {
-        return view('errors.503', [
-            'page_title' =>  config('app.name'),
+        return view('admin.departments-edit', [
+            'page_title' =>  $this->option->getOption('_site_title'),
             'shared_data' => $this->getsSharedData(),
         ]);
     }
 
     /**
-     * Test Page Render
+     * Departments View Page Render
      *
+     * @param integer $id
      * @return string
      */
-    public function testRender($flag)
+    public function viewRender($id)
     {
-        if( !in_array($flag, ['api']) ){
-            return redirect('/test/api');
-        }
-
-        $output = \Route::getRoutes();
-        $routes = [];
-        foreach ($output as $key => $value) {
-            $routes[] = $value->uri;
-        }
-
-        return view('tests.base', [
-            'page_title' =>  "Test - Ponut",
+        return view('admin.departments-view', [
+            'page_title' =>  $this->option->getOption('_site_title'),
             'shared_data' => $this->getsSharedData(),
-            'flag' => $flag,
-            'routes' => $routes
         ]);
-    }
-
-    /**
-     * Job Page Render
-     *
-     * @return string
-     */
-    public function jobsRender($dept_slug = false, $job_slug = false)
-    {
-
     }
 }
