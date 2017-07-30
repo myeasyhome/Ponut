@@ -89,7 +89,7 @@ class UsersController extends Controller
      *
      * @return string
      */
-    public function editUser()
+    public function editUser($id)
     {
         $inputs = [
             'id' => 'required|integer',
@@ -212,7 +212,7 @@ class UsersController extends Controller
      *
      * @return string
      */
-    public function deleteUser()
+    public function deleteUser($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'

@@ -36,7 +36,7 @@ class CandidatesController extends Controller
      *
      * @return string
      */
-    public function editCandidate()
+    public function editCandidate($id)
     {
         //~
     }
@@ -46,7 +46,7 @@ class CandidatesController extends Controller
      *
      * @return string
      */
-    public function deleteCandidate()
+    public function deleteCandidate($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'

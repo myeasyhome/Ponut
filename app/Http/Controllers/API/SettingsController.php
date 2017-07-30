@@ -124,7 +124,7 @@ class SettingsController extends Controller
      *
      * @return string
      */
-    public function deleteRoute()
+    public function deleteRoute($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
@@ -162,7 +162,7 @@ class SettingsController extends Controller
      *
      * @return string
      */
-    public function updateRoutePermission()
+    public function updateRoutePermission($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer',
@@ -267,7 +267,7 @@ class SettingsController extends Controller
      *
      * @return string
      */
-    public function editRole()
+    public function editRole($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required',
@@ -331,7 +331,7 @@ class SettingsController extends Controller
      *
      * @return string
      */
-    public function deleteRole()
+    public function deleteRole($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'
@@ -426,7 +426,7 @@ class SettingsController extends Controller
      *
      * @return string
      */
-    public function editPermission()
+    public function editPermission($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required',
@@ -487,7 +487,7 @@ class SettingsController extends Controller
      *
      * @return string
      */
-    public function deletePermission()
+    public function deletePermission($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'

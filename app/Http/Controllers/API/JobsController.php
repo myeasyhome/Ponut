@@ -86,7 +86,7 @@ class JobsController extends Controller
      *
      * @return string
      */
-	public function editJob()
+	public function editJob($id)
 	{
         //~
 	}
@@ -96,7 +96,7 @@ class JobsController extends Controller
      *
      * @return string
      */
-	public function deleteJob()
+	public function deleteJob($id)
 	{
         $validator = Validator::make($this->request->all(), [
             'id' => 'required|integer'

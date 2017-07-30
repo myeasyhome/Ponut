@@ -82,7 +82,7 @@ class DepartmentsController extends Controller
      *
      * @return string
      */
-    public function editDepartment()
+    public function editDepartment($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required',
@@ -142,7 +142,7 @@ class DepartmentsController extends Controller
      *
      * @return string
      */
-    public function deleteDepartment()
+    public function deleteDepartment($id)
     {
         $validator = Validator::make($this->request->all(), [
             'id' => 'required'
