@@ -12,7 +12,7 @@
                 </div>
                 <div class="ppanel">
                     <div class="panel-body">
-                        <form method="post" action="{{ route('api.reset_password.action') }}" id="reset_password_form">
+                        <form method="post" action="{{ route('api.action.fpwd.reset_password') }}" id="reset_password_form">
                             <input type="hidden" name="reset_hash" value="{{ $hash }}">
                             <div class="form-group">
                                 <label class="control-label">{{ trans('messages.reset_password_form_new_password') }}</label>

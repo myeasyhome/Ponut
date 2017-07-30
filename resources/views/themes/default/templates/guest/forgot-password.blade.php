@@ -12,7 +12,7 @@
                 </div>
                 <div class="ppanel">
                     <div class="panel-body">
-                        <form method="post" action="{{ route('api.forgot_password.action') }}" id="forgot_password_form">
+                        <form method="post" action="{{ route('api.action.fpwd.generate_token') }}" id="forgot_password_form">
                             <div class="form-group">
                                 <label class="control-label">{{ trans('messages.forgot_password_form_username_email') }}</label>
                                 <input type="text" placeholder="Enter your username or email" required="required" name="username" class="form-control">

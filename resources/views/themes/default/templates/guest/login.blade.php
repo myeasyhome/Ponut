@@ -12,7 +12,7 @@
                 </div>
                 <div class="ppanel">
                     <div class="panel-body">
-                        <form method="post" action="{{ route('api.login.action') }}" id="login_form">
+                        <form method="post" action="{{ route('api.action.login.auth') }}" id="login_form">
                             <div class="form-group">
                                 <label class="control-label">{{ trans('messages.login_form_username_email') }}</label>
                                 <input type="text" placeholder="Username or Email" required="required" name="username" class="form-control">

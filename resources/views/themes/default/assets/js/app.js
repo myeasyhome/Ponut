@@ -9,6 +9,31 @@
 
 var ponut_app = ponut_app || {};
 
+ponut_app.layout = (function (window, document, $) {
+
+    var setup = {
+
+        el: {
+            iCheck : $('.i-checks'),
+        },
+
+        init: function(){
+            if( setup.el.iCheck.length ){
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green'
+                });
+            }
+        }
+    };
+
+   return {
+        init: setup.init
+    };
+
+})(window, document, jQuery);
+
+
 ponut_app.setup = (function (window, document, $) {
 
     var setup = {
@@ -301,4 +326,5 @@ jQuery(document).ready(function($){
     ponut_app.fpwd.init();
     ponut_app.push_notification.init();
     ponut_app.test_script.init();
+    ponut_app.layout.init();
 });
