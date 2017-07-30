@@ -87,12 +87,12 @@ class UsersController extends Controller
     /**
      * Edit User
      *
+     * @param integer $id
      * @return string
      */
     public function editUser($id)
     {
         $inputs = [
-            'id' => 'required|integer',
             'username' => 'required|username',
             'first_name' => 'required',
             'last_name' => 'required',
@@ -102,8 +102,6 @@ class UsersController extends Controller
             'status' => 'required',
         ];
         $messages = [
-            'id.required' => trans('messages.edit_user_error_id_required'),
-            'id.integer' => trans('messages.edit_user_error_id_integer'),
             'username.required' => trans('messages.edit_user_error_username_required'),
             'username.username' => trans('messages.edit_user_error_username_username'),
             'first_name.required' => trans('messages.edit_user_error_first_name_required'),
@@ -129,7 +127,7 @@ class UsersController extends Controller
             return response()->json($this->getResponse());
         }
 
-        if( $this->user->checkUsername($this->request->input('username'), $this->request->input('id')) ){
+        if( $this->user->checkUsername($this->request->input('username'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
                 "code" => "validation_errors",
@@ -146,7 +144,7 @@ class UsersController extends Controller
         }
 
 
-        if( $this->user->checkEmail($this->request->input('email'), $this->request->input('id')) ){
+        if( $this->user->checkEmail($this->request->input('email'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
                 "code" => "validation_errors",
@@ -165,7 +163,7 @@ class UsersController extends Controller
         if( $this->request->has('change_password') ){
 
             $result = $this->user->updateUser([
-                'id' => $this->request->input('id')
+                'id' => $id
             ],[
                 'username' => $this->request->input('username'),
                 'first_name' => $this->request->input('first_name'),
@@ -180,7 +178,7 @@ class UsersController extends Controller
         }else{
 
             $result = $this->user->updateUser([
-                'id' => $this->request->input('id')
+                'id' => $id
             ],[
                 'username' => $this->request->input('username'),
                 'first_name' => $this->request->input('first_name'),
@@ -210,25 +208,13 @@ class UsersController extends Controller
     /**
      * Delete User
      *
+     * @param integer $id
      * @return string
      */
     public function deleteUser($id)
     {
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer'
-        ], [
-            'id.required' => trans('messages.delete_user_error_id_required'),
-            'id.integer' => trans('messages.delete_user_error_id_integer'),
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
-
         $result = $this->user->deleteUser([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);

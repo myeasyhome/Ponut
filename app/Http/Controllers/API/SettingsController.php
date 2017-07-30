@@ -122,25 +122,13 @@ class SettingsController extends Controller
     /**
      * Delete Route
      *
+     * @param integer $id
      * @return string
      */
     public function deleteRoute($id)
     {
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer'
-        ], [
-            'id.required' => trans('messages.delete_route_error_id_required'),
-            'id.integer' => trans('messages.delete_route_error_id_integer'),
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
-
         $result = $this->route->deleteRoute([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);
@@ -160,17 +148,15 @@ class SettingsController extends Controller
     /**
      * Update Route Permission
      *
+     * @param integer $id
      * @return string
      */
     public function updateRoutePermission($id)
     {
         $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer',
             'permission_id' => 'required',
             'enabled' => 'required',
         ], [
-            'id.required' => trans('messages.update_route_permission_error_id_required'),
-            'id.integer' => trans('messages.update_route_permission_error_id_integer'),
             'permission_id.required' => trans('messages.update_route_permission_error_permission_id_required'),
             'enabled.required' => trans('messages.update_route_permission_error_enabled_required'),
         ]);
@@ -185,7 +171,7 @@ class SettingsController extends Controller
             'permission_id' => (empty($this->request->input('permission_id'))) ? '0' : $this->request->input('permission_id'),
             'enabled' => $this->request->input('enabled')
         ],[
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);
@@ -265,16 +251,15 @@ class SettingsController extends Controller
     /**
      * Edit Role
      *
+     * @param integer $id
      * @return string
      */
     public function editRole($id)
     {
         $validator = Validator::make($this->request->all(), [
-            'id' => 'required',
             'name' => 'required',
             'display_name' => 'required'
         ], [
-            'id.required' => trans('messages.edit_role_error_id_required'),
             'name.required' => trans('messages.edit_role_error_name_required'),
             'display_name.required' => trans('messages.edit_role_error_display_name_required')
         ]);
@@ -285,7 +270,7 @@ class SettingsController extends Controller
             return response()->json($this->getResponse());
         }
 
-        if( $this->role->checkRole($this->request->input('name'), $this->request->input('id')) ){
+        if( $this->role->checkRole($this->request->input('name'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
                 "code" => "validation_errors",
@@ -306,7 +291,7 @@ class SettingsController extends Controller
             'display_name' => $this->request->input('display_name'),
             'description' => empty($this->request->input('description')) ? '' : $this->request->input('description')
         ],[
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         # Edit Role Permissions
@@ -329,25 +314,14 @@ class SettingsController extends Controller
     /**
      * Delete Role
      *
+     * @param integer $id
      * @return string
      */
     public function deleteRole($id)
     {
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer'
-        ], [
-            'id.required' => trans('messages.delete_role_error_id_required'),
-            'id.integer' => trans('messages.delete_role_error_id_integer'),
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
 
         $result = $this->role->deleteRole([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);
@@ -424,16 +398,15 @@ class SettingsController extends Controller
     /**
      * Edit Permission
      *
+     * @param integer $id
      * @return string
      */
     public function editPermission($id)
     {
         $validator = Validator::make($this->request->all(), [
-            'id' => 'required',
             'name' => 'required',
             'display_name' => 'required'
         ], [
-            'id.required' => trans('messages.edit_permission_error_id_required'),
             'name.required' => trans('messages.edit_permission_error_name_required'),
             'display_name.required' => trans('messages.edit_permission_error_display_name_required')
         ]);
@@ -444,7 +417,7 @@ class SettingsController extends Controller
             return response()->json($this->getResponse());
         }
 
-        if( $this->permission->checkPermission($this->request->input('name'), $this->request->input('id')) ){
+        if( $this->permission->checkPermission($this->request->input('name'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
                 "code" => "validation_errors",
@@ -465,7 +438,7 @@ class SettingsController extends Controller
             'display_name' => $this->request->input('display_name'),
             'description' => empty($this->request->input('description')) ? '' : $this->request->input('description')
         ],[
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);
@@ -485,25 +458,13 @@ class SettingsController extends Controller
     /**
      * Delete Permission
      *
+     * @param integer $id
      * @return string
      */
     public function deletePermission($id)
     {
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer'
-        ], [
-            'id.required' => trans('messages.delete_permission_error_id_required'),
-            'id.integer' => trans('messages.delete_permission_error_id_integer'),
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
-
         $result = $this->permission->deletePermission([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);

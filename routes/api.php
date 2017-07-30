@@ -22,31 +22,31 @@ Route::group(['as' => 'api.', 'prefix' => '/'], function () {
 
 	# Entities CRUD Endpoints
 	Route::post( 'candidates', ['as' => 'candidates.add', 'uses' => 'API\CandidatesController@addCandidate'] );
-	Route::put( 'candidates/{id}', ['as' => 'candidates.edit', 'uses' => 'API\CandidatesController@editCandidate'] );
-	Route::delete( 'candidates/{id}', ['as' => 'candidates.delete', 'uses' => 'API\CandidatesController@deleteCandidate'] );
+	Route::put( 'candidates/{id}', ['as' => 'candidates.edit', 'uses' => 'API\CandidatesController@editCandidate'] )->where('id', '[0-9]+');
+	Route::delete( 'candidates/{id}', ['as' => 'candidates.delete', 'uses' => 'API\CandidatesController@deleteCandidate'] )->where('id', '[0-9]+');
 
 	Route::post( 'departments', ['as' => 'departments.add', 'uses' => 'API\DepartmentsController@addDepartment'] );
-	Route::put( 'departments/{id}', ['as' => 'departments.edit', 'uses' => 'API\DepartmentsController@editDepartment'] );
-	Route::delete( 'departments/{id}', ['as' => 'departments.delete', 'uses' => 'API\DepartmentsController@deleteDepartment'] );
+	Route::put( 'departments/{id}', ['as' => 'departments.edit', 'uses' => 'API\DepartmentsController@editDepartment'] )->where('id', '[0-9]+');
+	Route::delete( 'departments/{id}', ['as' => 'departments.delete', 'uses' => 'API\DepartmentsController@deleteDepartment'] )->where('id', '[0-9]+');
 
 	Route::post( 'jobs', ['as' => 'jobs.add', 'uses' => 'API\JobsController@addJob'] );
-	Route::put( 'jobs/{id}', ['as' => 'jobs.edit', 'uses' => 'API\JobsController@editJob'] );
-	Route::delete( 'jobs/{id}', ['as' => 'jobs.delete', 'uses' => 'API\JobsController@deleteJob'] );
+	Route::put( 'jobs/{id}', ['as' => 'jobs.edit', 'uses' => 'API\JobsController@editJob'] )->where('id', '[0-9]+');
+	Route::delete( 'jobs/{id}', ['as' => 'jobs.delete', 'uses' => 'API\JobsController@deleteJob'] )->where('id', '[0-9]+');
 
 	Route::post( 'roles', ['as' => 'roles.add', 'uses' => 'API\SettingsController@addRole'] );
-	Route::put( 'roles/{id}', ['as' => 'roles.edit', 'uses' => 'API\SettingsController@editRole'] );
-	Route::delete( 'roles/{id}', ['as' => 'roles.delete', 'uses' => 'API\SettingsController@deleteRole'] );
+	Route::put( 'roles/{id}', ['as' => 'roles.edit', 'uses' => 'API\SettingsController@editRole'] )->where('id', '[0-9]+');
+	Route::delete( 'roles/{id}', ['as' => 'roles.delete', 'uses' => 'API\SettingsController@deleteRole'] )->where('id', '[0-9]+');
 
 	Route::post( 'permissions', ['as' => 'permissions.add', 'uses' => 'API\SettingsController@addPermission'] );
-	Route::put( 'permissions/{id}', ['as' => 'permissions.edit', 'uses' => 'API\SettingsController@editPermission'] );
-	Route::delete( 'permissions/{id}', ['as' => 'permissions.delete', 'uses' => 'API\SettingsController@deletePermission'] );
+	Route::put( 'permissions/{id}', ['as' => 'permissions.edit', 'uses' => 'API\SettingsController@editPermission'] )->where('id', '[0-9]+');
+	Route::delete( 'permissions/{id}', ['as' => 'permissions.delete', 'uses' => 'API\SettingsController@deletePermission'] )->where('id', '[0-9]+');
 
 	Route::post( 'users', ['as' => 'users.add', 'uses' => 'API\UsersController@addUser'] );
-	Route::put( 'users/{id}', ['as' => 'users.edit', 'uses' => 'API\UsersController@editUser'] );
-	Route::delete( 'users/{id}', ['as' => 'users.delete', 'uses' => 'API\UsersController@deleteUser'] );
+	Route::put( 'users/{id}', ['as' => 'users.edit', 'uses' => 'API\UsersController@editUser'] )->where('id', '[0-9]+');
+	Route::delete( 'users/{id}', ['as' => 'users.delete', 'uses' => 'API\UsersController@deleteUser'] )->where('id', '[0-9]+');
 
-	Route::delete( 'routes/{id}', ['as' => 'routes.delete', 'uses' => 'API\SettingsController@deleteRoute'] );
-	Route::put( 'routes/{id}/permission', ['as' => 'routes.set_permission', 'uses' => 'API\SettingsController@updateRoutePermission'] );
+	Route::delete( 'routes/{id}', ['as' => 'routes.delete', 'uses' => 'API\SettingsController@deleteRoute'] )->where('id', '[0-9]+');
+	Route::put( 'routes/{id}/permission', ['as' => 'routes.set_permission', 'uses' => 'API\SettingsController@updateRoutePermission'] )->where('id', '[0-9]+');
 
 	# Specific Actions Endpoints
 	Route::post( 'action/setup/options', ['as' => 'action.setup.options', 'uses' => 'API\SetupController@siteOptions'] );

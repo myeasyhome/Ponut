@@ -80,16 +80,15 @@ class DepartmentsController extends Controller
     /**
      * Edit Department
      *
+     * @param integer $id
      * @return string
      */
     public function editDepartment($id)
     {
         $validator = Validator::make($this->request->all(), [
-            'id' => 'required',
             'name' => 'required',
             'slug' => 'required'
         ], [
-            'id.required' => trans('messages.edit_department_error_id_required'),
             'name.required' => trans('messages.edit_department_error_name_required'),
             'slug.required' => trans('messages.edit_department_error_slug_required')
         ]);
@@ -100,7 +99,7 @@ class DepartmentsController extends Controller
             return response()->json($this->getResponse());
         }
 
-        if( $this->department->slugExist($this->request->input('slug'), $this->request->input('id')) ){
+        if( $this->department->slugExist($this->request->input('slug'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
                 "code" => "validation_errors",
@@ -117,7 +116,7 @@ class DepartmentsController extends Controller
         }
 
         $result = $this->department->updateDepartment([
-            'id' => $this->request->input('id')
+            'id' => $id
         ],[
             'name' => $this->request->input('name'),
             'slug' => $this->request->input('slug')
@@ -140,24 +139,13 @@ class DepartmentsController extends Controller
     /**
      * Delete Department
      *
+     * @param integer $id
      * @return string
      */
     public function deleteDepartment($id)
     {
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required'
-        ], [
-            'id.required' => trans('messages.delete_department_error_invalid_id')
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
-
         $result = $this->department->deleteDepartment([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);

@@ -34,6 +34,7 @@ class CandidatesController extends Controller
     /**
      * Edit Candidate
      *
+     * @param integer $id
      * @return string
      */
     public function editCandidate($id)
@@ -44,25 +45,13 @@ class CandidatesController extends Controller
     /**
      * Delete Candidate
      *
+     * @param integer $id
      * @return string
      */
     public function deleteCandidate($id)
     {
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer'
-        ], [
-            'id.required' => trans('messages.delete_candidate_error_id_required'),
-            'id.integer' => trans('messages.delete_candidate_error_id_integer'),
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
-
         $result = $this->candidate->deleteCandidate([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);

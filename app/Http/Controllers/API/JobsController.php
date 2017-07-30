@@ -84,6 +84,7 @@ class JobsController extends Controller
     /**
      * Edit Job
      *
+     * @param integer $id
      * @return string
      */
 	public function editJob($id)
@@ -94,25 +95,13 @@ class JobsController extends Controller
     /**
      * Delete Job
      *
+     * @param integer $id
      * @return string
      */
 	public function deleteJob($id)
 	{
-        $validator = Validator::make($this->request->all(), [
-            'id' => 'required|integer'
-        ], [
-            'id.required' => trans('messages.delete_job_error_id_required'),
-            'id.integer' => trans('messages.delete_job_error_id_integer'),
-        ]);
-
-        if ($validator->fails()) {
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
-            return response()->json($this->getResponse());
-        }
-
         $result = $this->job->deleteJob([
-            'id' => $this->request->input('id')
+            'id' => $id
         ]);
 
         $this->updateResponseStatus($result);

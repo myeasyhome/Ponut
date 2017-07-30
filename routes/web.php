@@ -29,27 +29,27 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
     Route::group(['as' => 'candidates.', 'prefix' => 'candidates'], function () {
         Route::get( '/', ['as' => 'index.render', 'uses' => 'Web\CandidatesController@candidatesList'] );
         Route::get( 'add', ['as' => 'add.render', 'uses' => 'Web\CandidatesController@addCandidate'] );
-        Route::get( 'view/{id}', ['as' => 'view.render', 'uses' => 'Web\CandidatesController@viewCandidate'] );
+        Route::get( 'view/{id}', ['as' => 'view.render', 'uses' => 'Web\CandidatesController@viewCandidate'] )->where('id', '[0-9]+');
     });
 
     Route::group(['as' => 'departments.', 'prefix' => 'departments'], function () {
         Route::get( '/', ['as' => 'index.render', 'uses' => 'Web\DepartmentsController@departmentsList'] );
         Route::get( 'add', ['as' => 'add.render', 'uses' => 'Web\DepartmentsController@addDepartment'] );
-        Route::get( 'edit/{id}', ['as' => 'edit.render', 'uses' => 'Web\DepartmentsController@editDepartment'] );
-        Route::get( 'view/{id}', ['as' => 'view.render', 'uses' => 'Web\DepartmentsController@viewDepartment'] );
+        Route::get( 'edit/{id}', ['as' => 'edit.render', 'uses' => 'Web\DepartmentsController@editDepartment'] )->where('id', '[0-9]+');
+        Route::get( 'view/{id}', ['as' => 'view.render', 'uses' => 'Web\DepartmentsController@viewDepartment'] )->where('id', '[0-9]+');
     });
 
     Route::group(['as' => 'jobs.', 'prefix' => 'jobs'], function () {
         Route::get( '/', ['as' => 'index.render', 'uses' => 'Web\JobsController@jobsList'] );
         Route::get( 'add', ['as' => 'add.render', 'uses' => 'Web\JobsController@addJob'] );
-        Route::get( 'edit/{id}', ['as' => 'edit.render', 'uses' => 'Web\JobsController@editJob'] );
-        Route::get( 'view/{id}', ['as' => 'view.render', 'uses' => 'Web\JobsController@viewJob'] );
+        Route::get( 'edit/{id}', ['as' => 'edit.render', 'uses' => 'Web\JobsController@editJob'] )->where('id', '[0-9]+');
+        Route::get( 'view/{id}', ['as' => 'view.render', 'uses' => 'Web\JobsController@viewJob'] )->where('id', '[0-9]+');
     });
 
     Route::group(['as' => 'users.', 'prefix' => 'users'], function () {
         Route::get( '/', ['as' => 'index.render', 'uses' => 'Web\UsersController@usersList'] );
         Route::get( 'add', ['as' => 'add.render', 'uses' => 'Web\UsersController@addUser'] );
-        Route::get( 'edit/{id}', ['as' => 'edit.render', 'uses' => 'Web\UsersController@editUser'] );
+        Route::get( 'edit/{id}', ['as' => 'edit.render', 'uses' => 'Web\UsersController@editUser'] )->where('id', '[0-9]+');
     });
 
     Route::get( 'calendar', ['as' => 'calendar.index.render', 'uses' => 'Web\CalendarController@calendar'] );
