@@ -14,8 +14,8 @@ ponut_app.setup = (function (window, document, $) {
     var setup = {
 
         el: {
-        	second_setup_step: $('form#second_setup_step'),
-        	third_setup_step: $('form#third_setup_step'),
+            second_setup_step: $('form#second_setup_step'),
+            third_setup_step: $('form#third_setup_step'),
             second_setup_step_submit: $('form#second_setup_step button[type="submit"]'),
             third_setup_step_submit: $('form#third_setup_step button[type="submit"]')
         },
