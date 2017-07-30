@@ -18,19 +18,19 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class PluginsController extends Controller
 {
 
     /**
-     * Plugins Page Render
+     * Plugins Page
      *
      * @return string
      */
-    public function pluginsRender()
+    public function plugins()
     {
-        return view('admin.dashboard', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+        return view('admin.plugins', [
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

@@ -18,19 +18,19 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class CalendarController extends Controller
 {
 
     /**
-     * Calendar Page Render
+     * Calendar Page
      *
      * @return string
      */
-    public function indexRender()
+    public function calendar()
     {
         return view('admin.calendar', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

@@ -18,46 +18,44 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class CandidatesController extends Controller
 {
 
     /**
-     * Candidates List Page Render
+     * Candidates List Page
      *
      * @return string
      */
-    public function indexRender()
+    public function candidatesList()
     {
         return view('admin.candidates-all', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Candidates Add Page Render
+     * Candidates Add Page
      *
      * @return string
      */
-    public function addRender()
+    public function addCandidate()
     {
         return view('admin.candidates-add', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Candidates View Page Render
+     * Candidates View Page
      *
      * @param integer $id
      * @return string
      */
-    public function viewRender($id)
+    public function viewCandidate($id)
     {
         return view('admin.candidates-view', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

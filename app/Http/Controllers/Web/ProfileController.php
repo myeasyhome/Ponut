@@ -18,32 +18,31 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class ProfileController extends Controller
 {
 
     /**
-     * Profile Page Render
+     * Profile Page
      *
      * @return string
      */
-    public function profileRender()
+    public function profile()
     {
         return view('admin.profile', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Notifications Page Render
+     * Notifications Page
      *
      * @return string
      */
-    public function notificationsRender()
+    public function notifications()
     {
         return view('admin.notifications', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

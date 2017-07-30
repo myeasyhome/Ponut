@@ -18,60 +18,57 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class JobsController extends Controller
 {
 
     /**
-     * Jobs List Page Render
+     * Jobs List Page
      *
      * @return string
      */
-    public function indexRender()
+    public function jobsList()
     {
         return view('admin.jobs-all', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Jobs Add Page Render
+     * Jobs Add Page
      *
      * @return string
      */
-    public function addRender()
+    public function addJob()
     {
         return view('admin.jobs-add', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Jobs Edit Page Render
+     * Jobs Edit Page
      *
      * @param integer $id
      * @return string
      */
-    public function editRender($id)
+    public function editJob($id)
     {
         return view('admin.jobs-edit', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Jobs View Page Render
+     * Jobs View Page
      *
      * @param integer $id
      * @return string
      */
-    public function viewRender($id)
+    public function viewJob($id)
     {
         return view('admin.jobs-view', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

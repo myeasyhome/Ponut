@@ -24,5 +24,4 @@ Route::group(['as' => 'api.', 'prefix' => '/'], function () {
 	Route::post( 'action/setup/options', ['as' => 'action.setup.options', 'uses' => 'API\SetupController@siteOptions'] );
 	Route::post( 'action/setup/admin', ['as' => 'action.setup.admin', 'uses' => 'API\SetupController@siteAdmin'] );
 
-
 });

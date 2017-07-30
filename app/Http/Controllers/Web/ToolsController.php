@@ -18,29 +18,43 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class ToolsController extends Controller
 {
-    public function exportRender()
+
+    /**
+     * Export Page
+     *
+     * @return string
+     */
+    public function export()
     {
         return view('admin.tools-export', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
-    public function importRender()
+    /**
+     * Import Page
+     *
+     * @return string
+     */
+    public function import()
     {
         return view('admin.tools-import', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
-    public function backupsRender()
+    /**
+     * Backups Page
+     *
+     * @return string
+     */
+    public function backups()
     {
         return view('admin.tools-backups', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

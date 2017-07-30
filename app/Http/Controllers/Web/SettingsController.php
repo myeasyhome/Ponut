@@ -18,84 +18,79 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class SettingsController extends Controller
 {
 
     /**
-     * Settings General Page Render
+     * Settings General Page
      *
      * @return string
      */
-    public function generalRender()
+    public function general()
     {
         return view('admin.settings-general', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Settings Advanced Page Render
+     * Settings Advanced Page
      *
      * @return string
      */
-    public function advancedRender()
+    public function advanced()
     {
         return view('admin.settings-advanced', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Settings Routes Page Render
+     * Settings Routes Page
      *
      * @return string
      */
-    public function routesRender()
+    public function routes()
     {
         return view('admin.settings-routes', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Settings Roles Page Render
+     * Settings Roles Page
      *
      * @return string
      */
-    public function rolesRender()
+    public function roles()
     {
         return view('admin.settings-roles', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Settings Permissions Page Render
+     * Settings Permissions Page
      *
      * @return string
      */
-    public function permissionsRender()
+    public function permissions()
     {
         return view('admin.settings-permissions', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Settings About Page Render
+     * Settings About Page
      *
      * @return string
      */
-    public function aboutRender()
+    public function about()
     {
         return view('admin.settings-about', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

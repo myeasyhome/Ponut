@@ -23,11 +23,11 @@ class FpwdController extends Controller
 {
 
     /**
-     * Forgot Password Page Render
+     * Forgot Password Page
      *
      * @return string
      */
-    public function forgotPasswordRender()
+    public function forgotPassword()
     {
 
         if( Auth::check() ){
@@ -40,12 +40,12 @@ class FpwdController extends Controller
     }
 
     /**
-     * Reset Password Page Render
+     * Reset Password Page
      *
      * @param string $hash
      * @return string
      */
-    public function resetPasswordRender($hash)
+    public function resetPassword($hash)
     {
         if( Auth::check() ){
             return redirect()->route('home.index.render');

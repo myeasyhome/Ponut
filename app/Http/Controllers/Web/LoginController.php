@@ -19,15 +19,16 @@ use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class LoginController extends Controller
 {
 
     /**
-     * Login Page Render
+     * Login Page
      *
      * @return string
      */
-    public function indexRender()
+    public function login()
     {
     	if( Auth::check() ){
     		$url = Session::get('url.intended', route('admin.dashboard.index.render'));

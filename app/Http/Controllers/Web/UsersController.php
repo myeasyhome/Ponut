@@ -18,29 +18,43 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class UsersController extends Controller
 {
-    public function indexRender()
+
+    /**
+     * Users List Page
+     *
+     * @return string
+     */
+    public function usersList()
     {
         return view('admin.users-all', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
-    public function addRender()
+    /**
+     * Users Add Page
+     *
+     * @return string
+     */
+    public function addUser()
     {
         return view('admin.users-add', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
-    public function editRender($id)
+    /**
+     * Users Edit Page
+     *
+     * @return string
+     */
+    public function editUser($id)
     {
         return view('admin.users-edit', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

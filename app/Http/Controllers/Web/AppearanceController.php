@@ -18,31 +18,30 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class AppearanceController extends Controller
 {
     /**
-     * Themes Page Render
+     * Themes Page
      *
      * @return string
      */
-    public function themesRender()
+    public function themesList()
     {
         return view('admin.appearance-themes', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Customize Page Render
+     * Customize Page
      *
      * @return string
      */
-    public function customizeRender()
+    public function customizeTheme()
     {
         return view('admin.appearance-customize', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

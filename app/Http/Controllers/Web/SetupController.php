@@ -17,6 +17,7 @@ use Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class SetupController extends Controller
 {
 
@@ -25,7 +26,7 @@ class SetupController extends Controller
      *
      * @return string
      */
-    public function indexRender()
+    public function setup()
     {
         // Check if Setup is Closed
         if( env('CLOSE_SETUP', false) ){

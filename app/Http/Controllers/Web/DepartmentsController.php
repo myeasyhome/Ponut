@@ -18,60 +18,57 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class DepartmentsController extends Controller
 {
 
     /**
-     * Departments List Page Render
+     * Departments List Page
      *
      * @return string
      */
-    public function indexRender()
+    public function departmentsList()
     {
         return view('admin.departments-all', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Departments Add Page Render
+     * Departments Add Page
      *
      * @return string
      */
-    public function addRender()
+    public function addDepartment()
     {
         return view('admin.departments-add', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Departments Edit Page Render
+     * Departments Edit Page
      *
      * @param integer $id
      * @return string
      */
-    public function editRender($id)
+    public function editDepartment($id)
     {
         return view('admin.departments-edit', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * Departments View Page Render
+     * Departments View Page
      *
      * @param integer $id
      * @return string
      */
-    public function viewRender($id)
+    public function viewDepartment($id)
     {
         return view('admin.departments-view', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 }

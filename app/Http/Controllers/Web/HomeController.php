@@ -18,54 +18,56 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
+
 class HomeController extends Controller
 {
 
     /**
-     * Home Page Render
+     * Home Page
      *
      * @return string
      */
-    public function indexRender()
+    public function landing()
     {
+        ////////////////////////////////////////
+        return view('guest.welcome');
+        ////////////////////////////////////////
+
         return view('guest.home', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * 404 Page Render
+     * 404 Page
      *
      * @return string
      */
-    public function notfoundRender()
+    public function notfound()
     {
         return view('errors.404', [
-            'page_title' =>  $this->option->getOption('_site_title'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  $this->option->getOption('_site_title')
         ]);
     }
 
     /**
-     * 503 Page Render
+     * 503 Page
      *
      * @return string
      */
-    public function errorRender()
+    public function error()
     {
         return view('errors.503', [
-            'page_title' =>  config('app.name'),
-            'shared_data' => $this->getsSharedData(),
+            'page_title' =>  config('app.name')
         ]);
     }
 
     /**
-     * Test Page Render
+     * Test Page
      *
      * @return string
      */
-    public function testRender($flag)
+    public function test($flag)
     {
         if( !in_array($flag, ['api']) ){
             return redirect('/test/api');
@@ -79,19 +81,18 @@ class HomeController extends Controller
 
         return view('tests.base', [
             'page_title' =>  "Test - Ponut",
-            'shared_data' => $this->getsSharedData(),
             'flag' => $flag,
             'routes' => $routes
         ]);
     }
 
     /**
-     * Job Page Render
+     * Job Page
      *
      * @return string
      */
-    public function jobsRender($dept_slug = false, $job_slug = false)
+    public function jobs($dept_slug = false, $job_slug = false)
     {
-
+        //~
     }
 }
