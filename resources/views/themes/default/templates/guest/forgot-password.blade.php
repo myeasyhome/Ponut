@@ -10,7 +10,7 @@
                 <div class="text-center m-b-md">
                     <h3>{{ trans('messages.forgot_password_form_title') }}</h3>
                 </div>
-                <div class="hpanel">
+                <div class="ppanel">
                     <div class="panel-body">
                         <form method="post" action="{{ route('api.forgot_password.action') }}" id="forgot_password_form">
                             <div class="form-group">

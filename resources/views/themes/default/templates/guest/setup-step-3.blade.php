@@ -10,7 +10,7 @@
                 <div class="text-center m-b-md">
                     <h3>{{ trans('messages.setup_form_3_title') }}</h3>
                 </div>
-                <div class="hpanel">
+                <div class="ppanel">
                     <div class="panel-body">
                         <form method="post" action="{{ route('api.setup.action.third_step') }}" id="third_setup_step">
                             <div class="form-group">

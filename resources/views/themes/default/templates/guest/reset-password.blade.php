@@ -10,7 +10,7 @@
                 <div class="text-center m-b-md">
                     <h3>{{ trans('messages.reset_password_form_title') }}</h3>
                 </div>
-                <div class="hpanel">
+                <div class="ppanel">
                     <div class="panel-body">
                         <form method="post" action="{{ route('api.reset_password.action') }}" id="reset_password_form">
                             <input type="hidden" name="reset_hash" value="{{ $hash }}">

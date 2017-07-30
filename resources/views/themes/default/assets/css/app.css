@@ -1032,6 +1032,19 @@ label.error:before {
     }
 }
 
+
+/* Login Page */
+.login-container {
+    max-width: 420px;
+    margin: auto;
+    padding-top: 6%
+}
+@media(max-width:420px) {
+    .login-container {
+        margin: auto 10px
+    }
+}
+
 /**************************
  * Helpers
  *************************/
@@ -1551,6 +1564,226 @@ label.error:before {
 /**************************
  * Components
  *************************/
+
+/* Panels */
+
+.ppanel>.panel-heading {
+    color: inherit;
+    font-weight: 600;
+    padding: 10px 4px;
+    transition: all .3s;
+    border: 1px solid transparent
+}
+
+.ppanel .pbuilt.panel-heading {
+    border-bottom: 0
+}
+
+.ppanel>.panel-footer,
+.ppanel>.panel-section {
+    color: inherit;
+    border: 1px solid #eaeaea;
+    border-top: 0;
+    font-size: 90%;
+    background: #f7f9fa;
+    padding: 10px 15px
+}
+
+.ppanel.panel-collapse>.panel-heading,
+.ppanel .pbuilt {
+    background: #fff;
+    border-color: #eaeaea;
+    border: 1px solid #eaeaea;
+    padding: 10px 10px;
+    border-radius: 2px
+}
+
+.ppanel .panel-body {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 2px;
+    padding: 20px;
+    position: relative
+}
+
+.ppanel.panel-group .panel-body:first-child {
+    border-top: 1px solid #eaeaea
+}
+
+.ppanel.panel-group .panel-body {
+    border-top: 0
+}
+
+.panel-collapse .panel-body {
+    border: 0
+}
+
+.ppanel {
+    background-color: none;
+    border: 0;
+    box-shadow: none;
+    margin-bottom: 25px
+}
+
+.panel-tools {
+    display: inline-block;
+    float: right;
+    margin-top: 0;
+    padding: 0;
+    position: relative
+}
+
+.ppanel .alert {
+    margin-bottom: 0;
+    border-radius: 0;
+    border: 1px solid #eaeaea;
+    border-bottom: 0
+}
+
+.panel-tools a {
+    margin-left: 5px;
+    color: #9d9fa2;
+    cursor: pointer
+}
+
+.ppanel.bgreen .panel-body {
+    border-top: 2px solid #62cb31
+}
+
+.ppanel.bblue .panel-body {
+    border-top: 2px solid #3498db
+}
+
+.ppanel.byellow .panel-body {
+    border-top: 2px solid #ffb606
+}
+
+.ppanel.bviolet .panel-body {
+    border-top: 2px solid #9b59b6
+}
+
+.ppanel.borange .panel-body {
+    border-top: 2px solid #e67e22
+}
+
+.ppanel.bred .panel-body {
+    border-top: 2px solid #e74c3c
+}
+
+.ppanel.breddeep .panel-body {
+    border-top: 2px solid #c0392b
+}
+
+.ppanel.bnavyblue .panel-body {
+    border-top: 2px solid #34495e
+}
+
+.ppanel.bggreen .panel-body {
+    background: #62cb31;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgblue .panel-body {
+    background: #3498db;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgyellow .panel-body {
+    background: #ffb606;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgviolet .panel-body {
+    background: #9b59b6;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgorange .panel-body {
+    background: #e67e22;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgred .panel-body {
+    background: #e74c3c;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgreddeep .panel-body {
+    background: #c0392b;
+    color: #fff;
+    border: 0
+}
+
+.ppanel.bgnavyblue .panel-body {
+    background: #34495e;
+    color: #fff;
+    border: 0
+}
+
+.panel-group .panel-heading {
+    background-color: #f7f9fa
+}
+
+
+
+.panel-body h5,
+.panel-body h4 {
+    font-weight: 600
+}
+
+
+.ppanel.collapsed .panel-body,
+.ppanel.collapsed .panel-footer {
+    display: none
+}
+
+.ppanel.collapsed .fa.fa-chevron-up:before {
+    content: "\f078"
+}
+
+.ppanel.collapsed .fa.fa-chevron-down:before {
+    content: "\f077"
+}
+
+.ppanel.collapsed.panel-collapse .panel-body {
+    border-width: 0 1px 1px 1px;
+    border-color: #eaeaea;
+    border-style: solid
+}
+
+.ppanel.collapsed .pbuilt.panel-heading {
+    border-bottom: 1px solid #eaeaea
+}
+
+.ppanel.fullscreen {
+    z-index: 2030;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    margin-bottom: 0
+}
+
+.ppanel.fullscreen .showhide {
+    display: none
+}
+
+.ppanel.fullscreen .panel-body {
+    min-height: calc(100% - 77px)
+}
+
+.ppanel .panel-body.file-body {
+    padding: 30px 0;
+    text-align: center
+}
 
 /* Buttons */
 
