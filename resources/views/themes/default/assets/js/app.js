@@ -28,7 +28,7 @@ ponut_app.setup = (function (window, document, $) {
                 error_form_clear: false,
                 success_reload: true,
                 error_reload: false,
-            });
+            }, 'post');
             ponut_skelton.forms.simple_form_submit({
                 form_element: setup.el.third_setup_step,
                 form_submit_element: setup.el.third_setup_step_submit,
@@ -36,7 +36,7 @@ ponut_app.setup = (function (window, document, $) {
                 error_form_clear: false,
                 success_reload: true,
                 error_reload: false,
-            });
+            }, 'post');
         },
     };
 
@@ -63,7 +63,7 @@ ponut_app.login = (function (window, document, $) {
                 error_form_clear: false,
                 success_reload: true,
                 error_reload: false,
-            });
+            }, 'post');
         },
     };
 
@@ -93,7 +93,7 @@ ponut_app.fpwd = (function (window, document, $) {
                 error_form_clear: false,
                 success_reload: false,
                 error_reload: false,
-            });
+            }, 'post');
             ponut_skelton.forms.simple_form_submit({
                 form_element: fpwd.el.reset_password_form,
                 form_submit_element: fpwd.el.reset_password_form_submit,
@@ -101,7 +101,7 @@ ponut_app.fpwd = (function (window, document, $) {
                 error_form_clear: false,
                 success_reload: false,
                 error_reload: false,
-            });
+            }, 'post');
 
         },
     };
