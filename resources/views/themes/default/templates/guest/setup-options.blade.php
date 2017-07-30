@@ -12,7 +12,7 @@
                 </div>
                 <div class="ppanel">
                     <div class="panel-body">
-                        <form method="post" action="{{ route('api.setup.action.second_step') }}" id="second_setup_step">
+                        <form method="post" action="{{ route('api.action.setup.options') }}" id="second_setup_step">
                             <div class="form-group">
                                 <label class="control-label">{{ trans('messages.setup_form_2_site_title') }}</label>
                                 <input type="text" required="required" placeholder="Ponut" name="site_title" class="form-control">

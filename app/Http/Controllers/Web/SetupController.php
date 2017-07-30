@@ -39,7 +39,9 @@ class SetupController extends Controller
             return redirect(route('login'));
         }
 
-        return view('guest.setup-step-' . $step, [
+        $step = str_replace([2, 3], ['options', 'admin'], $step);
+
+        return view('guest.setup-' . $step, [
             'page_title' => trans('messages.setup_page_title'),
             'step' => $step,
             'errors' => [],

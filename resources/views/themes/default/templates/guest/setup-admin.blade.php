@@ -12,7 +12,7 @@
                 </div>
                 <div class="ppanel">
                     <div class="panel-body">
-                        <form method="post" action="{{ route('api.setup.action.third_step') }}" id="third_setup_step">
+                        <form method="post" action="{{ route('api.action.setup.admin') }}" id="third_setup_step">
                             <div class="form-group">
                                 <label class="control-label">{{ trans('messages.setup_form_3_username') }}</label>
                                 <input type="text" required="required" placeholder="admin" name="username" class="form-control">
