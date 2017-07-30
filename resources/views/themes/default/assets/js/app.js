@@ -127,17 +127,20 @@ ponut_app.push_notification = (function (window, document, $) {
                     action: app_globals.notify_url,
                     form_data: {},
                     success_callack: function (response) {
-                        if( response.data.message != '' ){
+                        if( response.data != '' ){
                             ponut_skelton.notifications.popup_notify({
                                 type: response.data.status,
                                 title: '',
                                 message: response.data.message
                             });
+                        }else{
+                            clearInterval(app_globals.running_intervals['notify']);
                         }
                         console.log(response);
                     },
                     error_callback: function (error) {
                         console.log(error);
+                        clearInterval(app_globals.running_intervals['notify']);
                     }
                 });
             }, 10000);
