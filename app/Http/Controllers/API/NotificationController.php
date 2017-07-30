@@ -29,7 +29,7 @@ class NotificationController extends Controller
 	public function notify()
 	{
 
-		$message = $this->notify->getNotifications($this->auth_user->id);
+		//$message = $this->notify->getNotifications($this->auth_user->id);
 
 		#~ Send Notifications
 	}

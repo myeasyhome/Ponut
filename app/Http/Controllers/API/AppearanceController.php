@@ -36,7 +36,7 @@ class AppearanceController extends Controller
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
+            $this->updateResponseMessage($validator->errors()->toArray(), "validation");
             return response()->json($this->getResponse());
         }
 
@@ -71,7 +71,7 @@ class AppearanceController extends Controller
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
+            $this->updateResponseMessage($validator->errors()->toArray(), "validation");
             return response()->json($this->getResponse());
         }
 
@@ -108,7 +108,7 @@ class AppearanceController extends Controller
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
+            $this->updateResponseMessage($validator->errors()->toArray(), "validation");
             return response()->json($this->getResponse());
         }
 

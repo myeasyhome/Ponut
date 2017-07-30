@@ -48,7 +48,7 @@ class JobsController extends Controller
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
-            $this->updateResponseMessage($validator->errors(), "validation");
+            $this->updateResponseMessage($validator->errors()->toArray(), "validation");
             return response()->json($this->getResponse());
         }
 

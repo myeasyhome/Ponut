@@ -147,7 +147,7 @@ class Controller extends BaseController
      * @param string $type
      * @return void
      */
-    protected function updateResponseMessages($messages, $type = "plain")
+    protected function updateResponseMessage($messages, $type = "plain")
     {
         if( $type == 'plain' ){
 
@@ -158,20 +158,24 @@ class Controller extends BaseController
             $formatted_messages = [];
 
             foreach ($messages as $field_name => $errors) {
-
-                foreach ($errors as $error) {
+                if( is_array($errors) ){
                     $formatted_messages[] = [
                         "type" => "error",
                         "field_id" => $field_name,
-                        "message" => $error
+                        "message" => $errors[0]
+                    ];
+                }else{
+                    $formatted_messages[] = [
+                        "type" => "error",
+                        "field_id" => $field_name,
+                        "message" => $errors
                     ];
                 }
-
             }
 
             $this->response["messages"] = [
                 "code" => "validation_errors",
-                "messages" => $formatted_messages
+                "messages" => $formatted_messages,
             ];
         }
     }
