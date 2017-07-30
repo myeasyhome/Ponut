@@ -54,12 +54,23 @@ ponut_skelton.api = (function (window, document, $) {
         config: function(){
             axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         },
-
         post_form: function(args){
             axios.post(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
         },
         post_request: function(args){
             axios.post(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+        },
+        put_form: function(args){
+            axios.put(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+        },
+        put_request: function(args){
+            axios.put(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+        },
+        delete_form: function(args){
+            axios.delete(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+        },
+        delete_request: function(args){
+            axios.delete(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
         }
     };
 
@@ -67,7 +78,11 @@ ponut_skelton.api = (function (window, document, $) {
 
     return {
         post_form: api.post_form,
-        post_request: api.post_request
+        post_request: api.post_request,
+        put_form: api.put_form,
+        put_request: api.put_request,
+        delete_form: api.delete_form,
+        delete_request: api.delete_request
     };
 
 })(window, document, jQuery);
@@ -87,7 +102,7 @@ ponut_skelton.forms = (function (window, document, $) {
 
         },
 
-        simple_form_submit: function(args){
+        simple_form_submit: function(args, method = 'post'){
 
             args = ponut_skelton.utils.merge_options({
                 form_element: false,
@@ -109,56 +124,163 @@ ponut_skelton.forms = (function (window, document, $) {
                 event.preventDefault();
                 args.form_submit_element.attr('disabled', 'disabled');
                 args.form_submit_element.ladda( 'start' );
-                ponut_skelton.api.post_form({
-                    action: args.form_element.attr('action'),
-                    form_data: forms.form_data({form_element: args.form_element}),
-                    success_callack: function (response) {
-                        for (var key in response.data.messages) {
-                            if (response.data.messages.hasOwnProperty(key)) {
+
+                if( method == 'post' ){
+
+                    ponut_skelton.api.post_form({
+                        action: args.form_element.attr('action'),
+                        form_data: forms.form_data({form_element: args.form_element}),
+                        success_callack: function (response) {
+
+                            for(var messageObj of response.data.messages.messages) {
                                 ponut_skelton.notifications.popup_notify({
-                                    type: response.data.status,
+                                    type: messageObj.type,
                                     title: '',
-                                    message: response.data.messages[key][0]
+                                    message: messageObj.message
                                 });
                                 break;
                             }
-                        }
-                        if( args.success_form_clear && response.data.status == 'success' ){
-                            args.form_submit_element.removeAttr('disabled');
-                            args.form_submit_element.ladda('stop');
-                            args.form_element.trigger('reset');
-                        }else if( args.error_form_clear && response.data.status != 'success' ){
-                            args.form_submit_element.removeAttr('disabled');
-                            args.form_submit_element.ladda('stop');
-                            args.form_element.trigger('reset');
-                        }else if( args.success_reload && response.data.status == 'success' ){
-                            for (var key in app_globals.running_intervals) {
-                                clearInterval(app_globals.running_intervals[key]);
-                            }
-                            setTimeout(function() {
+                            if( args.success_form_clear && response.data.success == true ){
                                 args.form_submit_element.removeAttr('disabled');
                                 args.form_submit_element.ladda('stop');
-                                location.reload();
-                            }, 2000);
-                        }else if( args.error_reload && response.data.status != 'success' ){
-                            for (var key in app_globals.running_intervals) {
-                                clearInterval(app_globals.running_intervals[key]);
-                            }
-                            setTimeout(function() {
+                                args.form_element.trigger('reset');
+                            }else if( args.error_form_clear && response.data.success == false ){
                                 args.form_submit_element.removeAttr('disabled');
                                 args.form_submit_element.ladda('stop');
-                                location.reload();
-                            }, 2000);
-                        }else{
-                            args.form_submit_element.removeAttr('disabled');
-                            args.form_submit_element.ladda('stop');
+                                args.form_element.trigger('reset');
+                            }else if( args.success_reload && response.data.success == true ){
+                                for (var key in app_globals.running_intervals) {
+                                    clearInterval(app_globals.running_intervals[key]);
+                                }
+                                setTimeout(function() {
+                                    args.form_submit_element.removeAttr('disabled');
+                                    args.form_submit_element.ladda('stop');
+                                    location.reload();
+                                }, 2000);
+                            }else if( args.error_reload && response.data.success == false ){
+                                for (var key in app_globals.running_intervals) {
+                                    clearInterval(app_globals.running_intervals[key]);
+                                }
+                                setTimeout(function() {
+                                    args.form_submit_element.removeAttr('disabled');
+                                    args.form_submit_element.ladda('stop');
+                                    location.reload();
+                                }, 2000);
+                            }else{
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                            }
+                            console.log(response);
+                        },
+                        error_callback: function (error) {
+                            console.log(error);
                         }
-                        console.log(response);
-                    },
-                    error_callback: function (error) {
-                        console.log(error);
-                    }
-                });
+                    });
+
+                }else if(method == 'put'){
+
+                    ponut_skelton.api.put_form({
+                        action: args.form_element.attr('action'),
+                        form_data: forms.form_data({form_element: args.form_element}),
+                        success_callack: function (response) {
+                            for(var messageObj of response.data.messages.messages) {
+                                ponut_skelton.notifications.popup_notify({
+                                    type: messageObj.type,
+                                    title: '',
+                                    message: messageObj.message
+                                });
+                                break;
+                            }
+                            if( args.success_form_clear && response.data.success == true ){
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                                args.form_element.trigger('reset');
+                            }else if( args.error_form_clear && response.data.success == false ){
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                                args.form_element.trigger('reset');
+                            }else if( args.success_reload && response.data.success == true ){
+                                for (var key in app_globals.running_intervals) {
+                                    clearInterval(app_globals.running_intervals[key]);
+                                }
+                                setTimeout(function() {
+                                    args.form_submit_element.removeAttr('disabled');
+                                    args.form_submit_element.ladda('stop');
+                                    location.reload();
+                                }, 2000);
+                            }else if( args.error_reload && response.data.success == false ){
+                                for (var key in app_globals.running_intervals) {
+                                    clearInterval(app_globals.running_intervals[key]);
+                                }
+                                setTimeout(function() {
+                                    args.form_submit_element.removeAttr('disabled');
+                                    args.form_submit_element.ladda('stop');
+                                    location.reload();
+                                }, 2000);
+                            }else{
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                            }
+                            console.log(response);
+                        },
+                        error_callback: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+                }else if(method == 'delete'){
+
+                    ponut_skelton.api.delete_form({
+                        action: args.form_element.attr('action'),
+                        form_data: forms.form_data({form_element: args.form_element}),
+                        success_callack: function (response) {
+                            for(var messageObj of response.data.messages.messages) {
+                                ponut_skelton.notifications.popup_notify({
+                                    type: messageObj.type,
+                                    title: '',
+                                    message: messageObj.message
+                                });
+                                break;
+                            }
+                            if( args.success_form_clear && response.data.success == true ){
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                                args.form_element.trigger('reset');
+                            }else if( args.error_form_clear && response.data.success == false ){
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                                args.form_element.trigger('reset');
+                            }else if( args.success_reload && response.data.success == true ){
+                                for (var key in app_globals.running_intervals) {
+                                    clearInterval(app_globals.running_intervals[key]);
+                                }
+                                setTimeout(function() {
+                                    args.form_submit_element.removeAttr('disabled');
+                                    args.form_submit_element.ladda('stop');
+                                    location.reload();
+                                }, 2000);
+                            }else if( args.error_reload && response.data.success == false ){
+                                for (var key in app_globals.running_intervals) {
+                                    clearInterval(app_globals.running_intervals[key]);
+                                }
+                                setTimeout(function() {
+                                    args.form_submit_element.removeAttr('disabled');
+                                    args.form_submit_element.ladda('stop');
+                                    location.reload();
+                                }, 2000);
+                            }else{
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                            }
+                            console.log(response);
+                        },
+                        error_callback: function (error) {
+                            console.log(error);
+                        }
+                    });
+
+                }
+
             });
         },
 
