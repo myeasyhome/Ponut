@@ -118,6 +118,7 @@ class Setup implements SetupContract
         $user->language = 'en_US';
         $user->job_title = '';
         $user->password = \Hash::make($admin_password);
+        $user->api_token = str_random(100);
         $user->status = 'active';
         $user->remember_token = '';
 

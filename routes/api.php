@@ -18,7 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::group(['as' => 'api.', 'prefix' => '/'], function () {
+Route::post( 'action/setup/options', ['as' => 'api.action.setup.options', 'uses' => 'API\SetupController@siteOptions'] );
+Route::post( 'action/setup/admin', ['as' => 'api.action.setup.admin', 'uses' => 'API\SetupController@siteAdmin'] );
+Route::post( 'action/fpwd/generate_token', ['as' => 'api.action.fpwd.generate_token', 'uses' => 'API\FpwdController@generateToken'] );
+Route::post( 'action/fpwd/reset_password', ['as' => 'api.action.fpwd.reset_password', 'uses' => 'API\FpwdController@resetPassword'] );
+Route::post( 'action/login/auth', ['as' => 'api.action.login.auth', 'uses' => 'API\LoginController@auth'] );
+
+Route::group(['as' => 'api.', 'prefix' => '/', 'middleware' => 'auth:api'], function () {
 
 	# Entities CRUD Endpoints
 	Route::post( 'candidates', ['as' => 'candidates.add', 'uses' => 'API\CandidatesController@addCandidate'] );
@@ -49,19 +55,11 @@ Route::group(['as' => 'api.', 'prefix' => '/'], function () {
 	Route::put( 'routes/{id}/permission', ['as' => 'routes.set_permission', 'uses' => 'API\SettingsController@updateRoutePermission'] )->where('id', '[0-9]+');
 
 	# Specific Actions Endpoints
-	Route::post( 'action/setup/options', ['as' => 'action.setup.options', 'uses' => 'API\SetupController@siteOptions'] );
-	Route::post( 'action/setup/admin', ['as' => 'action.setup.admin', 'uses' => 'API\SetupController@siteAdmin'] );
-
 	Route::post( 'action/theme/activate', ['as' => 'action.theme.activate', 'uses' => 'API\AppearanceController@activateTheme'] );
 	Route::post( 'action/theme/delete', ['as' => 'action.theme.delete', 'uses' => 'API\AppearanceController@deleteTheme'] );
 	Route::post( 'action/theme/customize', ['as' => 'action.theme.customize', 'uses' => 'API\AppearanceController@customizeTheme'] );
 
 	Route::post( 'action/department/generate_slug', ['as' => 'action.department.generate_slug', 'uses' => 'API\DepartmentsController@buildDepartmentSlug'] );
-
-	Route::post( 'action/fpwd/generate_token', ['as' => 'action.fpwd.generate_token', 'uses' => 'API\FpwdController@generateToken'] );
-	Route::post( 'action/fpwd/reset_password', ['as' => 'action.fpwd.reset_password', 'uses' => 'API\FpwdController@resetPassword'] );
-
-	Route::post( 'action/login/auth', ['as' => 'action.login.auth', 'uses' => 'API\LoginController@auth'] );
 
 	Route::post( 'action/notifications/notify', ['as' => 'action.notifications.notify', 'uses' => 'API\NotificationController@notify'] );
 
