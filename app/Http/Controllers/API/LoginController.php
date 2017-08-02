@@ -78,11 +78,138 @@ class LoginController extends Controller
             "messages" => [
                 [
                     "type" => 'error',
-                    "message" => trans('messages.login_error_message')
+                    "message" => trans('messages.login_success_message')
                 ]
             ]
         ], "plain");
 
         return response()->json($this->getResponse());
+    }
+
+    /**
+     * Get Refresh token
+     *
+     * @return string
+     */
+    public function fetchRefreshToken($access_token)
+    {
+        if( $this->request->user()->api_token != $access_token ){
+
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => 'error',
+                "messages" => [
+                    [
+                        "type" => 'error',
+                        "message" => trans('messages.add_job_success_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
+
+        }
+
+        // refresh api refresh token if required
+        $this->option->updateApiRefreshToken();
+
+        $this->updateResponseStatus(true);
+        $this->updateResponsePayload([
+            'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
+        ]);
+        $this->updateResponseMessage([
+            "code" => 'success',
+            "messages" => [
+                [
+                    "type" => 'success',
+                    "message" => trans('messages.add_job_success_message')
+                ]
+            ]
+        ], "plain");
+
+        return response()->json($this->getResponse());
+    }
+
+    /**
+     * Update Access tocken
+     *
+     *  @return string
+     */
+    public function updateAccessToken()
+    {
+        // Validate API refresh Token
+        $validator = Validator::make($this->request->all(), [
+            'api_refresh_token' => 'required'
+        ], [
+            'api_refresh_token.required' => trans('messages.add_job_error_username_required')
+        ]);
+
+        if ($validator->fails()) {
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => 'db_error',
+                "messages" => [
+                    [
+                        "type" => 'error',
+                        "message" =>  trans('messages.add_job_error_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
+        }
+
+        if( ($this->request->input('api_refresh_token') != $this->option->getOption('_api_refresh_token')) && ($this->request->input('api_refresh_token') != $this->option->getOption('_api_old_refresh_token')) ){
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => 'db_error',
+                "messages" => [
+                    [
+                        "type" => 'error',
+                        "message" =>  trans('messages.add_job_error_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
+        }
+
+        $result = $this->user->refreshAccessToken($this->request->user()->id);
+
+        if( empty($result) ){
+
+            $this->updateResponseStatus(false);
+            $this->updateResponseMessage([
+                "code" => 'db_error',
+                "messages" => [
+                    [
+                        "type" => 'error',
+                        "message" =>  trans('messages.add_job_error_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
+
+        }else{
+
+            $this->updateResponseStatus(true);
+            $this->updateResponsePayload([
+                'api_token' => $result['api_token'],
+                'api_token_expire' => $result['api_token_expire']
+            ]);
+            $this->updateResponseMessage([
+                "code" => 'success',
+                "messages" => [
+                    [
+                        "type" => 'success',
+                        "message" => trans('messages.add_job_success_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse());
+
+        }
     }
 }

@@ -136,4 +136,33 @@ class Option implements OptionContract
     {
         return OptionModel::all()->count();
     }
+
+    public function updateApiRefreshToken()
+    {
+        $current_time = time();
+        $api_refresh_token = $this->getOption('_api_refresh_token');
+        $api_refresh_token_expire = $this->getOption('_api_refresh_token_expire');
+        $old_refresh_token = $this->getOption('_api_old_refresh_token');
+
+        // Check if token expired
+        if( time() > $api_refresh_token_expire ){
+
+            // refresh tokens
+            $new_token = \Hash::make(str_random(20));
+            $new_time = time() + config('auth.refresh_token_expire');
+            $old_token = $api_refresh_token;
+
+            if( $this->updateOption(['op_key' => '_api_refresh_token'], ['op_value' => $new_token]) ){
+                $this->options['_api_refresh_token'] = $new_token;
+            }
+            if( $this->updateOption(['op_key' => '_api_refresh_token_expire'], ['op_value' => $new_time]) ){
+                $this->options['_api_refresh_token_expire'] = $new_time;
+            }
+            if( $this->updateOption(['op_key' => '_api_old_refresh_token'], ['op_value' => $old_token]) ){
+                $this->options['_api_old_refresh_token'] = $old_token;
+            }
+        }
+
+        return true;
+    }
 }

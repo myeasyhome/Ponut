@@ -72,4 +72,9 @@ Route::group(['as' => 'api.', 'prefix' => '/', 'middleware' => 'auth:api'], func
 	Route::post( 'action/settings/update_general_settings', ['as' => 'action.settings.update_general_settings', 'uses' => 'API\SettingsController@updateGeneralSettings'] );
 	Route::post( 'action/settings/update_advanced_settings', ['as' => 'action.settings.update_advanced_settings', 'uses' => 'API\SettingsController@updateAdvancedSettings'] );
 	Route::post( 'action/settings/sync_routes', ['as' => 'action.settings.sync_routes', 'uses' => 'API\SettingsController@updateRoutes'] );
+
+
+	Route::get( 'action/fetch_refresh_token/{access_token}', ['as' => 'action.fetch_refresh_token', 'uses' => 'API\LoginController@fetchRefreshToken'] );
+	Route::post( 'action/update_access_token', ['as' => 'action.update_access_token', 'uses' => 'API\LoginController@updateAccessToken'] );
+
 });

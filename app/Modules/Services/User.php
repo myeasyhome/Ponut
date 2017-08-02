@@ -319,13 +319,27 @@ class User implements UserContract
             }else{
 
                 $api_token = \Hash::make(str_random(20));
+                $time = time() + config('auth.api_token_expire');
+
                 while ( UserModel::where('api_token', $api_token)->count() > 0 ) {
                     $api_token = \Hash::make(str_random(20));
                 }
 
+                if( strpos($username, '@') ){
+                    UserModel::where('email', $username)->update([
+                        'api_token' => $api_token,
+                        'api_token_expire' => $time
+                    ]);
+                }else{
+                    UserModel::where('email', $username)->update([
+                        'api_token' => $api_token,
+                        'api_token_expire' => $time
+                    ]);
+                }
+
                 return [
                     'api_token' => $api_token,
-                    'api_token_expire' => time() + config('auth.api_token_expire')
+                    'api_token_expire' => $time
                 ];
             }
         }
@@ -334,5 +348,33 @@ class User implements UserContract
             'api_token' => '',
             'api_token_expire' => ''
         ];
+    }
+
+    public function refreshAccessToken($user_id)
+    {
+        $api_token = \Hash::make(str_random(20));
+        $time = time() + config('auth.api_token_expire');
+
+        while ( UserModel::where('api_token', $api_token)->count() > 0 ) {
+            $api_token = \Hash::make(str_random(20));
+        }
+
+        $result = (boolean) UserModel::where('id', $user_id)->update([
+            'api_token' => $api_token,
+            'api_token_expire' => $time
+        ]);
+
+        if( $result ){
+
+            return [
+                'api_token' => $api_token,
+                'api_token_expire' => $time
+            ];
+
+        }else{
+
+            return [];
+
+        }
     }
 }

@@ -71,7 +71,35 @@ ponut_skelton.api = (function (window, document, $) {
         },
         delete_request: function(args){
             axios.delete(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+        },
+
+        store_tokens: function(api_token, api_token_expire){
+            Cookies.set('api_token', api_token);
+            Cookies.set('api_token_expire', api_token_expire);
+        },
+
+        validate_tokens: function(){
+            var api_token = Cookies.get('api_token');
+            var api_token_expire = Cookies.get('api_token_expire');
+            var current_time = Math.floor(Date.now() / 1000);
+            if( (current_time - (60 * 60)) <= api_token_expire ){
+                return false;
+            }
+            return true;
+        },
+
+        refresh_tokens: function(){
+            if( api.validate_tokens() ){
+                return true;
+            }
+
+            // get refresh token
+
+
+            // use refresh token to update access token
+
         }
+
     };
 
     api.init();
@@ -82,7 +110,8 @@ ponut_skelton.api = (function (window, document, $) {
         put_form: api.put_form,
         put_request: api.put_request,
         delete_form: api.delete_form,
-        delete_request: api.delete_request
+        delete_request: api.delete_request,
+        store_tokens: store_tokens
     };
 
 })(window, document, jQuery);
@@ -404,6 +433,30 @@ ponut_skelton.notifications = (function (window, document, $) {
 
    return {
         popup_notify: notifications.popup_notify,
+    };
+
+})(window, document, jQuery);
+
+
+/**
+ * Build App Charts
+ */
+ponut_skelton.charts = (function (window, document, $) {
+
+    var charts = {
+
+        el: {
+
+        },
+        init: function(){
+
+        }
+    };
+
+    charts.init();
+
+    return {
+
     };
 
 })(window, document, jQuery);
