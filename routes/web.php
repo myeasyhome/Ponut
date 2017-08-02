@@ -11,6 +11,8 @@
 |
 */
 
+Route::post( 'api/action/login/auth', ['as' => 'api.action.login.auth', 'uses' => 'API\LoginController@auth'] );
+
 Route::get( 'setup', ['as' => 'home.setup.render', 'uses' => 'Web\SetupController@setup'] );
 Route::get( '/', ['as' => 'home.index.render', 'uses' => 'Web\HomeController@landing'] );
 Route::get( '404', ['as' => 'home.notfound.render', 'uses' => 'Web\HomeController@notfound'] );

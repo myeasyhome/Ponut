@@ -48,22 +48,43 @@ class LoginController extends Controller
             $result = (boolean) Auth::attempt(['username' => $this->request->input('username'), 'password' => $this->request->input('password'), 'status' => 'active'], $this->request->input('remember'));
         }
 
-        $api_token = '';
-        $refresh_token = '';
-        $expire = '';
 
         $this->updateResponseStatus($result);
-        $this->updateResponsePayload([
-            'api_token' => $api_token,
-            'refresh_token' => $refresh_token,
-            'expire' => $expire
-        ]);
+
+        // set api access token & refresh token in case user already exist
+        if( $result ){
+            $user_api_data = $this->user->getApiData($this->request->input('username'));
+            $this->updateResponsePayload([
+                'api_token' => $user_api_data['api_token'],
+                'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
+                'api_token_expire' => $user_api_data['api_token_expire']
+            ]);
+
+            $this->updateResponseMessage([
+                "code" => 'success',
+                "messages" => [
+                    [
+                        "type" => 'success',
+                        "message" => trans('messages.login_success_message')
+                    ]
+                ]
+            ], "plain");
+
+            return response()->json($this->getResponse())->cookie(
+                'api_data', serialize([
+                    'api_token' => $user_api_data['api_token'],
+                    'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
+                    'api_token_expire' => $user_api_data['api_token_expire']
+                ]), (10 * 365 * 24 * 60 * 60), config('session.path'), config('session.domain'), config('session.secure'), false
+            );
+        }
+
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
+            "code" => 'invalid_login',
             "messages" => [
                 [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.login_success_message') : trans('messages.login_error_message')
+                    "type" => 'error',
+                    "message" => trans('messages.login_error_message')
                 ]
             ]
         ], "plain");

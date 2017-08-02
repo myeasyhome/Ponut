@@ -294,4 +294,45 @@ class User implements UserContract
     {
         return (boolean) PasswordResetModel::where('token', $hash)->count();
     }
+
+    /**
+     * Get API Data
+     *
+     * @param  string $username
+     * @return array
+     */
+    public function getApiData($username)
+    {
+        if( strpos($username, '@') ){
+            $users = UserModel::where('email', $username)->get();
+        }else{
+            $users = UserModel::where('username', $username)->get();
+        }
+
+        foreach ($users as $user) {
+
+            if( $user->api_token_expire > time() ){
+                return [
+                    'api_token' => $user->api_token,
+                    'api_token_expire' => $user->api_token_expire
+                ];
+            }else{
+
+                $api_token = \Hash::make(str_random(20));
+                while ( UserModel::where('api_token', $api_token)->count() > 0 ) {
+                    $api_token = \Hash::make(str_random(20));
+                }
+
+                return [
+                    'api_token' => $api_token,
+                    'api_token_expire' => time() + config('auth.api_token_expire')
+                ];
+            }
+        }
+
+        return [
+            'api_token' => '',
+            'api_token_expire' => ''
+        ];
+    }
 }

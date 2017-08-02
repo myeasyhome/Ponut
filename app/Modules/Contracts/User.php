@@ -27,5 +27,6 @@ interface User {
 	public function resetRequestWithEmail($email);
 	public function setNewPassword($hash, $new_password);
 	public function isHashValid($hash);
+	public function getApiData($username);
 
 }

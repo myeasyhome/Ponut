@@ -22,7 +22,6 @@ Route::post( 'action/setup/options', ['as' => 'api.action.setup.options', 'uses'
 Route::post( 'action/setup/admin', ['as' => 'api.action.setup.admin', 'uses' => 'API\SetupController@siteAdmin'] );
 Route::post( 'action/fpwd/generate_token', ['as' => 'api.action.fpwd.generate_token', 'uses' => 'API\FpwdController@generateToken'] );
 Route::post( 'action/fpwd/reset_password', ['as' => 'api.action.fpwd.reset_password', 'uses' => 'API\FpwdController@resetPassword'] );
-Route::post( 'action/login/auth', ['as' => 'api.action.login.auth', 'uses' => 'API\LoginController@auth'] );
 
 Route::group(['as' => 'api.', 'prefix' => '/', 'middleware' => 'auth:api'], function () {
 
