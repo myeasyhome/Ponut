@@ -55,8 +55,8 @@ class LoginController extends Controller
         if( $result ){
             $user_api_data = $this->user->getApiData($this->request->input('username'));
             $this->updateResponsePayload([
+                # 'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
                 'api_token' => $user_api_data['api_token'],
-                'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
                 'api_token_expire' => $user_api_data['api_token_expire']
             ]);
 
@@ -70,13 +70,7 @@ class LoginController extends Controller
                 ]
             ], "plain");
 
-            return response()->json($this->getResponse())->cookie(
-                'api_data', serialize([
-                    'api_token' => $user_api_data['api_token'],
-                    'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
-                    'api_token_expire' => $user_api_data['api_token_expire']
-                ]), (10 * 365 * 24 * 60 * 60), config('session.path'), config('session.domain'), config('session.secure'), false
-            );
+            return response()->json($this->getResponse());
         }
 
         $this->updateResponseMessage([
