@@ -4,6 +4,9 @@
 <!-- jquery-ui -->
 <script src="{{ asset('assets/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
 
+<!-- js-cookie -->
+<script src="{{ asset('assets/vendor/js-cookie/js.cookie-2.1.4.min.js') }}"></script>
+
 <!-- Axios -->
 <script src="{{ asset('assets/vendor/axios/dist/axios.min.js') }}"></script>
 
