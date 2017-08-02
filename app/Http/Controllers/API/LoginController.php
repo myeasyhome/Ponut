@@ -48,8 +48,16 @@ class LoginController extends Controller
             $result = (boolean) Auth::attempt(['username' => $this->request->input('username'), 'password' => $this->request->input('password'), 'status' => 'active'], $this->request->input('remember'));
         }
 
+        $api_token = '';
+        $refresh_token = '';
+        $expire = '';
 
         $this->updateResponseStatus($result);
+        $this->updateResponsePayload([
+            'api_token' => $api_token,
+            'refresh_token' => $refresh_token,
+            'expire' => $expire
+        ]);
         $this->updateResponseMessage([
             "code" => ($result) ? 'success' : 'db_error',
             "messages" => [

@@ -99,4 +99,6 @@ return [
         ],
     ],
 
+    'refresh_token_expire' => env('REFRESH_TOKEN_EXPIRE', 14 * 24 * 60 * 60), //in seconds
+    'api_token_expire' => env('API_TOKEN_EXPIRE', 24 * 60 * 60), //in seconds
 ];

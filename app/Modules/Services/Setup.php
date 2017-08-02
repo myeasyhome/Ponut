@@ -118,7 +118,8 @@ class Setup implements SetupContract
         $user->language = 'en_US';
         $user->job_title = '';
         $user->password = \Hash::make($admin_password);
-        $user->api_token = str_random(100);
+        $user->api_token = \Hash::make(str_random(20));
+        $user->api_token_expire = time() + config('auth.api_token_expire');
         $user->status = 'active';
         $user->remember_token = '';
 
@@ -176,6 +177,9 @@ class Setup implements SetupContract
             [ 'op_key' => '_site_enabled_plugins', 'op_value' => serialize([]), 'autoload' => 'on' ],
             [ 'op_key' => '_site_enabled_theme', 'op_value' => 'default', 'autoload' => 'on' ],
             [ 'op_key' => '_site_appearance_customize', 'op_value' => serialize(['font' => 'bitter', 'skin' => 'default']), 'autoload' => 'on' ],
+            [ 'op_key' => '_api_refresh_token', 'op_value' => \Hash::make(str_random(20)), 'autoload' => 'on' ],
+            [ 'op_key' => '_api_refresh_token_expire', 'op_value' => time() + config('auth.refresh_token_expire'), 'autoload' => 'on' ],
+            [ 'op_key' => '_api_old_refresh_token', 'op_value' => \Hash::make(str_random(20)), 'autoload' => 'on' ],
         ];
     }
 

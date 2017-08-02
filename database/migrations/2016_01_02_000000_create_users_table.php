@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('status', 20);
             $table->string('api_token',150)->unique();
+            $table->string('api_token_expire', 60); //expire after 24 hours
             $table->rememberToken();
             $table->timestamps();
             $table->index(['username', 'email']);
