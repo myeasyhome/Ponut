@@ -91,25 +91,8 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function fetchRefreshToken($access_token)
+    public function fetchRefreshToken()
     {
-        if( $this->request->user()->api_token != $access_token ){
-
-            $this->updateResponseStatus(false);
-            $this->updateResponseMessage([
-                "code" => 'invalid_access_token',
-                "messages" => [
-                    [
-                        "type" => 'error',
-                        "message" => trans('messages.refresh_token_error_message')
-                    ]
-                ]
-            ], "plain");
-
-            return response()->json($this->getResponse());
-
-        }
-
         // refresh api refresh token if required
         $this->option->updateApiRefreshToken();
 
