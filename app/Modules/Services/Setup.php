@@ -20,6 +20,11 @@ class Setup implements SetupContract
 {
     use DispatchesJobs;
 
+    /**
+     * Get App Status
+     *
+     * @return string
+     */
     public function getAppStatus()
     {
         try {
@@ -183,6 +188,11 @@ class Setup implements SetupContract
         ];
     }
 
+    /**
+     * Check App Health
+     *
+     * @return string
+     */
     public function healthCheck()
     {
         //~

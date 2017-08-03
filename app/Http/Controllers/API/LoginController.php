@@ -78,7 +78,7 @@ class LoginController extends Controller
             "messages" => [
                 [
                     "type" => 'error',
-                    "message" => trans('messages.login_success_message')
+                    "message" => trans('messages.login_error_message')
                 ]
             ]
         ], "plain");
@@ -97,11 +97,11 @@ class LoginController extends Controller
 
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'error',
+                "code" => 'invalid_access_token',
                 "messages" => [
                     [
                         "type" => 'error',
-                        "message" => trans('messages.add_job_success_message')
+                        "message" => trans('messages.refresh_token_error_message')
                     ]
                 ]
             ], "plain");
@@ -122,7 +122,7 @@ class LoginController extends Controller
             "messages" => [
                 [
                     "type" => 'success',
-                    "message" => trans('messages.add_job_success_message')
+                    "message" => trans('messages.refresh_token_success_message')
                 ]
             ]
         ], "plain");
@@ -141,17 +141,17 @@ class LoginController extends Controller
         $validator = Validator::make($this->request->all(), [
             'api_refresh_token' => 'required'
         ], [
-            'api_refresh_token.required' => trans('messages.add_job_error_username_required')
+            'api_refresh_token.required' => trans('messages.update_access_token_empty_refresh_token_error_message')
         ]);
 
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'db_error',
+                "code" => 'invalid_refresh_token',
                 "messages" => [
                     [
                         "type" => 'error',
-                        "message" =>  trans('messages.add_job_error_message')
+                        "message" =>  trans('messages.update_access_token_invalid_refresh_token_error_message')
                     ]
                 ]
             ], "plain");
@@ -162,11 +162,11 @@ class LoginController extends Controller
         if( ($this->request->input('api_refresh_token') != $this->option->getOption('_api_refresh_token')) && ($this->request->input('api_refresh_token') != $this->option->getOption('_api_old_refresh_token')) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'db_error',
+                "code" => 'invalid_refresh_token',
                 "messages" => [
                     [
                         "type" => 'error',
-                        "message" =>  trans('messages.add_job_error_message')
+                        "message" =>  trans('messages.update_access_token_invalid_refresh_token_error_message')
                     ]
                 ]
             ], "plain");
@@ -180,11 +180,11 @@ class LoginController extends Controller
 
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'db_error',
+                "code" => 'unknown_error',
                 "messages" => [
                     [
                         "type" => 'error',
-                        "message" =>  trans('messages.add_job_error_message')
+                        "message" =>  trans('messages.update_access_token_unknown_error_message')
                     ]
                 ]
             ], "plain");
@@ -203,7 +203,7 @@ class LoginController extends Controller
                 "messages" => [
                     [
                         "type" => 'success',
-                        "message" => trans('messages.add_job_success_message')
+                        "message" => trans('messages.update_access_token_success_message')
                     ]
                 ]
             ], "plain");

@@ -82,6 +82,12 @@ return [
     'login_error_password_required' => 'Error! Please insert your password',
     'login_success_message' => 'You logged in successfully.',
     'login_error_message' => 'Error! Invalid Username or Password.',
+    'refresh_token_error_message' => 'Error! Invalid API Access Token.',
+    'refresh_token_success_message' => 'Refresh Token Fetched Successfully.',
+    'update_access_token_empty_refresh_token_error_message' => 'Error! API Refresh Token is Required.',
+    'update_access_token_invalid_refresh_token_error_message' => 'Error! Invalid API Refresh Token.',
+    'update_access_token_unknown_error_message' => 'Error! Something goes wrong while updating access token.',
+    'update_access_token_success_message' => 'API Access Token Updated Successfully.',
 
 
     // Jobs/SendForgotPasswordEmail.php

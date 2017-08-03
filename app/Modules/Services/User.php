@@ -273,6 +273,13 @@ class User implements UserContract
         return false;
     }
 
+    /**
+     * Validate Old Password
+     *
+     * @param integer $user_id
+     * @param string $old_password
+     * @return boolean
+     */
     public function checkOldPassword($user_id, $old_password)
     {
         $user = UserModel::where('id', $user_id)->first();
@@ -350,6 +357,12 @@ class User implements UserContract
         ];
     }
 
+    /**
+     * Refresh API Access Token
+     *
+     * @param integer $user_id
+     * @return array
+     */
     public function refreshAccessToken($user_id)
     {
         $api_token = \Hash::make(str_random(20));

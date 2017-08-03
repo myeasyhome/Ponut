@@ -111,7 +111,7 @@ ponut_skelton.api = (function (window, document, $) {
         put_request: api.put_request,
         delete_form: api.delete_form,
         delete_request: api.delete_request,
-        store_tokens: store_tokens
+        store_tokens: api.store_tokens
     };
 
 })(window, document, jQuery);
