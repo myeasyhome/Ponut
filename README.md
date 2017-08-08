@@ -2,6 +2,7 @@ Ponut
 ====
 :rocket: Applicant Tracking System (ATS)
 
+[![Build Status](https://travis-ci.org/Clivern/Ponut.svg?branch=master)](https://travis-ci.org/Clivern/Ponut)
 
 #### Needed Packages
 
