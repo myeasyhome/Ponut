@@ -36,4 +36,4 @@ Acknowledgements
 
 © 2017, Clivern. Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
 
-**Imap** is authored and maintained by [@clivern](http://github.com/clivern).
+**Ponut** is authored and maintained by [@clivern](http://github.com/clivern).
