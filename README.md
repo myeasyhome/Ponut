@@ -4,7 +4,36 @@ Ponut
 
 [![Build Status](https://travis-ci.org/Clivern/Ponut.svg?branch=master)](https://travis-ci.org/Clivern/Ponut)
 
-#### Needed Packages
+Installation
+------------
 
-1. [Clivern/Imap](https://github.com/Clivern/Imap): A Package to access Mailbox Using PHP IMAP.
-1. [Clivern/Laravel-CSV-Export](https://github.com/Clivern/Laravel-CSV-Export): Export a Large Dataset in CSV Format.
+To install `ponut`, use the following:
+
+```php
+#~
+```
+
+Usage
+-----
+
+```php
+#~
+```
+
+
+Misc
+====
+
+Changelog
+---------
+Version 1.0.0:
+```
+Coming Soon :D
+```
+
+Acknowledgements
+----------------
+
+© 2017, Clivern. Released under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+
+**Imap** is authored and maintained by [@clivern](http://github.com/clivern).
