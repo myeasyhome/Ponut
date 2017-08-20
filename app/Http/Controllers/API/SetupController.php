@@ -55,12 +55,9 @@ class SetupController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.setup_step_2_success') : trans('messages.database_error_form')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.setup_step_2_success') : trans('messages.database_error_form')
             ]
         ], "plain");
 
@@ -106,12 +103,9 @@ class SetupController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.setup_step_3_success') : trans('messages.database_error_form')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.setup_step_3_success') : trans('messages.database_error_form')
             ]
         ], "plain");
 

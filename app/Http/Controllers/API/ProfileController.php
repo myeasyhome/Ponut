@@ -62,13 +62,9 @@ class ProfileController extends Controller
         if( $this->user->countUsersBy([['id', '!=', $this->auth_user->id], ['username', '=', $this->request->input('username')]]) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "username",
-                        "message" => trans('messages.profile_update_error_username_notvalid')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.profile_update_error_username_notvalid')
                 ]
             ], "plain");
 
@@ -79,13 +75,9 @@ class ProfileController extends Controller
         if( $this->user->countUsersBy([['id', '!=', $this->auth_user->id], ['email', '=', $this->request->input('email')]]) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "email",
-                        "message" => trans('messages.profile_update_error_email_notvalid')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.profile_update_error_email_notvalid')
                 ]
             ], "plain");
 
@@ -105,12 +97,9 @@ class ProfileController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.profile_update_success_message') : trans('messages.profile_update_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.profile_update_success_message') : trans('messages.profile_update_error_message')
             ]
         ], "plain");
 
@@ -146,13 +135,9 @@ class ProfileController extends Controller
 
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "old_password",
-                        "message" => trans('messages.profile_update_error_old_password_notvalid')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.profile_update_error_old_password_notvalid')
                 ]
             ], "plain");
 
@@ -167,12 +152,9 @@ class ProfileController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.profile_password_update_success_message') : trans('messages.profile_password_update_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.profile_password_update_success_message') : trans('messages.profile_password_update_error_message')
             ]
         ], "plain");
 

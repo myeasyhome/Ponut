@@ -51,13 +51,9 @@ class FpwdController extends Controller
             }else{
                 $this->updateResponseStatus(false);
                 $this->updateResponseMessage([
-                    "code" => "validation_errors",
-                    "messages" => [
-                        [
-                            "type" => "error",
-                            "field_id" => "username",
-                            "message" => trans('messages.forgot_password_form_username_username_or_email_invalid')
-                        ]
+                    [
+                        "type" => "ValidationError",
+                        "message" => trans('messages.forgot_password_form_username_username_or_email_invalid')
                     ]
                 ], "plain");
 
@@ -69,13 +65,9 @@ class FpwdController extends Controller
             }else{
                 $this->updateResponseStatus(false);
                 $this->updateResponseMessage([
-                    "code" => "validation_errors",
-                    "messages" => [
-                        [
-                            "type" => "error",
-                            "field_id" => "username",
-                            "message" => trans('messages.forgot_password_form_username_username_or_email_invalid')
-                        ]
+                    [
+                        "type" => "ValidationError",
+                        "message" => trans('messages.forgot_password_form_username_username_or_email_invalid')
                     ]
                 ], "plain");
 
@@ -85,12 +77,9 @@ class FpwdController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.forgot_password_reset_email_sent') : trans('messages.database_error_form')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.forgot_password_reset_email_sent') : trans('messages.database_error_form')
             ]
         ], "plain");
 
@@ -127,13 +116,9 @@ class FpwdController extends Controller
         if( !$this->user->isHashValid($reset_hash) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "reset_hash",
-                        "message" => trans('messages.reset_password_form_token_expired_message')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.reset_password_form_token_expired_message')
                 ]
             ], "plain");
 
@@ -144,12 +129,9 @@ class FpwdController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.reset_password_pasword_changed') : trans('messages.database_error_form')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.reset_password_pasword_changed') : trans('messages.database_error_form')
             ]
         ], "plain");
 

@@ -45,13 +45,9 @@ class DepartmentsController extends Controller
         if( $this->department->slugExist($this->request->input('slug')) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "slug",
-                        "message" => trans('messages.add_department_error_slug_exist')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.add_department_error_slug_exist')
                 ]
             ], "plain");
 
@@ -65,12 +61,9 @@ class DepartmentsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.add_department_success_message') : trans('messages.add_department_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.add_department_success_message') : trans('messages.add_department_error_message')
             ]
         ], "plain");
 
@@ -102,13 +95,9 @@ class DepartmentsController extends Controller
         if( $this->department->slugExist($this->request->input('slug'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "slug",
-                        "message" => trans('messages.edit_department_error_slug_exist')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.edit_department_error_slug_exist')
                 ]
             ], "plain");
 
@@ -124,12 +113,9 @@ class DepartmentsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.edit_department_success_message') : trans('messages.edit_department_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.edit_department_success_message') : trans('messages.edit_department_error_message')
             ]
         ], "plain");
 
@@ -150,12 +136,9 @@ class DepartmentsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.delete_department_success_message') : trans('messages.delete_department_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.delete_department_success_message') : trans('messages.delete_department_error_message')
             ]
         ], "plain");
 
@@ -183,9 +166,6 @@ class DepartmentsController extends Controller
 
 
         $this->updateResponseStatus(true);
-        $this->updateResponseMessage([
-            "code" => "success"
-        ], "plain");
         $this->updateResponsePayload([
             'slug' => $this->department->buildSlug($this->request->input('name'))
         ], false);

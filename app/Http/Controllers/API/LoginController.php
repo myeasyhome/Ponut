@@ -61,12 +61,9 @@ class LoginController extends Controller
             ]);
 
             $this->updateResponseMessage([
-                "code" => 'success',
-                "messages" => [
-                    [
-                        "type" => 'success',
-                        "message" => trans('messages.login_success_message')
-                    ]
+                [
+                    "type" => 'ActionSuccess',
+                    "message" => trans('messages.login_success_message')
                 ]
             ], "plain");
 
@@ -74,12 +71,9 @@ class LoginController extends Controller
         }
 
         $this->updateResponseMessage([
-            "code" => 'invalid_login',
-            "messages" => [
-                [
-                    "type" => 'error',
-                    "message" => trans('messages.login_error_message')
-                ]
+            [
+                "type" => 'ActionError',
+                "message" => trans('messages.login_error_message')
             ]
         ], "plain");
 
@@ -101,12 +95,9 @@ class LoginController extends Controller
             'api_refresh_token' => $this->option->getOption('_api_refresh_token'),
         ]);
         $this->updateResponseMessage([
-            "code" => 'success',
-            "messages" => [
-                [
-                    "type" => 'success',
-                    "message" => trans('messages.refresh_token_success_message')
-                ]
+            [
+                "type" => 'ActionSuccess',
+                "message" => trans('messages.refresh_token_success_message')
             ]
         ], "plain");
 
@@ -130,12 +121,9 @@ class LoginController extends Controller
         if ($validator->fails()) {
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'invalid_refresh_token',
-                "messages" => [
-                    [
-                        "type" => 'error',
-                        "message" =>  trans('messages.update_access_token_invalid_refresh_token_error_message')
-                    ]
+                [
+                    "type" => 'ValidationError',
+                    "message" =>  trans('messages.update_access_token_invalid_refresh_token_error_message')
                 ]
             ], "plain");
 
@@ -145,12 +133,9 @@ class LoginController extends Controller
         if( ($this->request->input('api_refresh_token') != $this->option->getOption('_api_refresh_token')) && ($this->request->input('api_refresh_token') != $this->option->getOption('_api_old_refresh_token')) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'invalid_refresh_token',
-                "messages" => [
-                    [
-                        "type" => 'error',
-                        "message" =>  trans('messages.update_access_token_invalid_refresh_token_error_message')
-                    ]
+                [
+                    "type" => 'ValidationError',
+                    "message" =>  trans('messages.update_access_token_invalid_refresh_token_error_message')
                 ]
             ], "plain");
 
@@ -163,12 +148,9 @@ class LoginController extends Controller
 
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => 'unknown_error',
-                "messages" => [
-                    [
-                        "type" => 'error',
-                        "message" =>  trans('messages.update_access_token_unknown_error_message')
-                    ]
+                [
+                    "type" => 'ActionError',
+                    "message" =>  trans('messages.update_access_token_unknown_error_message')
                 ]
             ], "plain");
 
@@ -182,12 +164,9 @@ class LoginController extends Controller
                 'api_token_expire' => $result['api_token_expire']
             ]);
             $this->updateResponseMessage([
-                "code" => 'success',
-                "messages" => [
-                    [
-                        "type" => 'success',
-                        "message" => trans('messages.update_access_token_success_message')
-                    ]
+                [
+                    "type" => 'ActionSuccess',
+                    "message" => trans('messages.update_access_token_success_message')
                 ]
             ], "plain");
 

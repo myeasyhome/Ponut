@@ -44,12 +44,9 @@ class PluginsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.activate_plugin_success_message') : trans('messages.activate_plugin_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.activate_plugin_success_message') : trans('messages.activate_plugin_error_message')
             ]
         ], "plain");
 
@@ -79,12 +76,9 @@ class PluginsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.deactivate_plugin_success_message') : trans('messages.deactivate_plugin_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.deactivate_plugin_success_message') : trans('messages.deactivate_plugin_error_message')
             ]
         ], "plain");
 
@@ -114,12 +108,9 @@ class PluginsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.delete_plugin_success_message') : trans('messages.delete_plugin_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.delete_plugin_success_message') : trans('messages.delete_plugin_error_message')
             ]
         ], "plain");
 

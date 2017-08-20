@@ -74,12 +74,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.update_general_settings_success_message') : trans('messages.update_general_settings_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.update_general_settings_success_message') : trans('messages.update_general_settings_error_message')
             ]
         ], "plain");
 
@@ -107,12 +104,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.update_routes_success_message') : trans('messages.update_routes_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.update_routes_success_message') : trans('messages.update_routes_error_message')
             ]
         ], "plain");
 
@@ -133,12 +127,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.delete_route_success_message') : trans('messages.delete_route_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.delete_route_success_message') : trans('messages.delete_route_error_message')
             ]
         ], "plain");
 
@@ -176,12 +167,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.update_route_permission_success_message') : trans('messages.update_route_permission_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.update_route_permission_success_message') : trans('messages.update_route_permission_error_message')
             ]
         ], "plain");
 
@@ -212,13 +200,9 @@ class SettingsController extends Controller
         if( $this->role->checkRole($this->request->input('name')) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "name",
-                        "message" => trans('messages.add_role_error_name_unique')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.add_role_error_name_unique')
                 ]
             ], "plain");
 
@@ -236,12 +220,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.add_role_success_message') : trans('messages.add_role_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.add_role_success_message') : trans('messages.add_role_error_message')
             ]
         ], "plain");
 
@@ -273,13 +254,9 @@ class SettingsController extends Controller
         if( $this->role->checkRole($this->request->input('name'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "name",
-                        "message" => trans('messages.edit_role_error_name_unique')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.edit_role_error_name_unique')
                 ]
             ], "plain");
 
@@ -299,12 +276,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.edit_role_success_message') : trans('messages.edit_role_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.edit_role_success_message') : trans('messages.edit_role_error_message')
             ]
         ], "plain");
 
@@ -326,12 +300,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.delete_role_success_message') : trans('messages.delete_role_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.delete_role_success_message') : trans('messages.delete_role_error_message')
             ]
         ], "plain");
 
@@ -362,13 +333,9 @@ class SettingsController extends Controller
         if( $this->permission->checkPermission($this->request->input('name')) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "name",
-                        "message" => trans('messages.add_permission_error_name_unique')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.add_permission_error_name_unique')
                 ]
             ], "plain");
 
@@ -383,12 +350,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.add_permission_success_message') : trans('messages.add_permission_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.add_permission_success_message') : trans('messages.add_permission_error_message')
             ]
         ], "plain");
 
@@ -420,13 +384,9 @@ class SettingsController extends Controller
         if( $this->permission->checkPermission($this->request->input('name'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "name",
-                        "message" => trans('messages.edit_permission_error_name_unique')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.edit_permission_error_name_unique')
                 ]
             ], "plain");
 
@@ -443,12 +403,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.edit_permission_success_message') : trans('messages.edit_permission_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.edit_permission_success_message') : trans('messages.edit_permission_error_message')
             ]
         ], "plain");
 
@@ -469,12 +426,9 @@ class SettingsController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.delete_permission_success_message') : trans('messages.delete_permission_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.delete_permission_success_message') : trans('messages.delete_permission_error_message')
             ]
         ], "plain");
 

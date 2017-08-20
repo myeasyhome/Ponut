@@ -72,12 +72,9 @@ class UsersController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.add_user_success_message') : trans('messages.add_user_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.add_user_success_message') : trans('messages.add_user_error_message')
             ]
         ], "plain");
 
@@ -130,13 +127,9 @@ class UsersController extends Controller
         if( $this->user->checkUsername($this->request->input('username'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "username",
-                        "message" => trans('messages.edit_user_error_username_unique')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.edit_user_error_username_unique')
                 ]
             ], "plain");
 
@@ -147,13 +140,9 @@ class UsersController extends Controller
         if( $this->user->checkEmail($this->request->input('email'), $id) ){
             $this->updateResponseStatus(false);
             $this->updateResponseMessage([
-                "code" => "validation_errors",
-                "messages" => [
-                    [
-                        "type" => "error",
-                        "field_id" => "email",
-                        "message" => trans('messages.edit_user_error_email_unique')
-                    ]
+                [
+                    "type" => "ValidationError",
+                    "message" => trans('messages.edit_user_error_email_unique')
                 ]
             ], "plain");
 
@@ -193,12 +182,9 @@ class UsersController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.edit_user_success_message') : trans('messages.edit_user_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.edit_user_success_message') : trans('messages.edit_user_error_message')
             ]
         ], "plain");
 
@@ -219,12 +205,9 @@ class UsersController extends Controller
 
         $this->updateResponseStatus($result);
         $this->updateResponseMessage([
-            "code" => ($result) ? 'success' : 'db_error',
-            "messages" => [
-                [
-                    "type" => ($result) ? 'success' : 'error',
-                    "message" =>  ($result) ? trans('messages.delete_user_success_message') : trans('messages.delete_user_error_message')
-                ]
+            [
+                "type" => ($result) ? 'ActionSuccess' : 'ActionError',
+                "message" =>  ($result) ? trans('messages.delete_user_success_message') : trans('messages.delete_user_error_message')
             ]
         ], "plain");
 
