@@ -41,6 +41,25 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /*
+        {
+            "success": false,
+            "payload": {
+                "id": 3,
+                "slug": "new-item"
+            }
+            "messages": [
+                {
+                    "type": "ValidationError",
+                    "message": "bla bla ...!"
+                },
+                {
+                    "type": "ValidationError",
+                    "message": "bla bla ...!"
+                }
+            ]
+        }
+    */
     private $response = [
     	"success" => false,
     	"payload" => [],
@@ -160,23 +179,18 @@ class Controller extends BaseController
             foreach ($messages as $field_name => $errors) {
                 if( is_array($errors) ){
                     $formatted_messages[] = [
-                        "type" => "error",
-                        "field_id" => $field_name,
+                        "type" => "ValidationError",
                         "message" => $errors[0]
                     ];
                 }else{
                     $formatted_messages[] = [
-                        "type" => "error",
-                        "field_id" => $field_name,
+                        "type" => "ValidationError",
                         "message" => $errors
                     ];
                 }
             }
 
-            $this->response["messages"] = [
-                "code" => "validation_errors",
-                "messages" => $formatted_messages,
-            ];
+            $this->response["messages"] = array_values($formatted_messages);
         }
     }
 
