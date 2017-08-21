@@ -81,7 +81,7 @@ ponut_app.login = (function (window, document, $) {
         },
 
         init: function(){
-            ponut_skelton.forms.simple_form_submit({
+            ponut_skelton.forms.auth({
                 form_element: login.el.login_form,
                 form_submit_element: login.el.login_form_submit,
                 success_form_clear: false,

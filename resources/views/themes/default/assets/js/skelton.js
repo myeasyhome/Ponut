@@ -55,22 +55,28 @@ ponut_skelton.api = (function (window, document, $) {
             axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
         },
         post_form: function(args){
-            axios.post(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+            api.refresh_tokens();
+            axios.post(args.action + "?api_token=" + Cookies.get('api_token'), args.form_data).then(args.success_callack).catch(args.error_callback);
         },
         post_request: function(args){
-            axios.post(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+            api.refresh_tokens();
+            axios.post(args.action + "?api_token=" + Cookies.get('api_token'), args.form_data).then(args.success_callack).catch(args.error_callback);
         },
         put_form: function(args){
-            axios.put(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+            api.refresh_tokens();
+            axios.put(args.action + "?api_token=" + Cookies.get('api_token'), args.form_data).then(args.success_callack).catch(args.error_callback);
         },
         put_request: function(args){
-            axios.put(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+            api.refresh_tokens();
+            axios.put(args.action + "?api_token=" + Cookies.get('api_token'), args.form_data).then(args.success_callack).catch(args.error_callback);
         },
         delete_form: function(args){
-            axios.delete(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+            api.refresh_tokens();
+            axios.delete(args.action + "?api_token=" + Cookies.get('api_token'), args.form_data).then(args.success_callack).catch(args.error_callback);
         },
         delete_request: function(args){
-            axios.delete(args.action, args.form_data).then(args.success_callack).catch(args.error_callback);
+            api.refresh_tokens();
+            axios.delete(args.action + "?api_token=" + Cookies.get('api_token'), args.form_data).then(args.success_callack).catch(args.error_callback);
         },
 
         store_tokens: function(api_token, api_token_expire){
@@ -82,7 +88,7 @@ ponut_skelton.api = (function (window, document, $) {
             var api_token = Cookies.get('api_token');
             var api_token_expire = Cookies.get('api_token_expire');
             var current_time = Math.floor(Date.now() / 1000);
-            if( (current_time - (60 * 60)) <= api_token_expire ){
+            if( (current_time - (60 * 60)) >= api_token_expire ){
                 return false;
             }
             return true;
@@ -95,17 +101,21 @@ ponut_skelton.api = (function (window, document, $) {
 
             // get refresh token
             // use refresh token to update access token
-            axios.get(app_globals.fetch_refresh_token_url).then(function (response) {
-                console.log(response);
+            axios.get(app_globals.fetch_refresh_token_url + "?api_token=" + Cookies.get('api_token')).then(function (response) {
+                if( response.data.success ){
+                    console.log(response);
 
-                axios.post(app_globals.update_access_token_url, {
-                        api_refresh_token: ''
-                }).then(function (response) {
-                        console.log(response);
-                }).catch(function (error) {
+                    axios.post(app_globals.update_access_token_url  + "?api_token=" + Cookies.get('api_token'), {
+                        api_refresh_token: response.data.payload.api_refresh_token
+                    }).then(function (response) {
+                        if( response.data.success ){
+                            api.store_tokens(response.data.payload.api_token, response.data.payload.api_token_expire);
+                            console.log(response);
+                        }
+                    }).catch(function (error) {
                         console.log(error);
-                });
-
+                    });
+                }
             }).catch(function (error) {
                 console.log(error);
             });
@@ -122,7 +132,9 @@ ponut_skelton.api = (function (window, document, $) {
         put_request: api.put_request,
         delete_form: api.delete_form,
         delete_request: api.delete_request,
-        store_tokens: api.store_tokens
+        store_tokens: api.store_tokens,
+        validate_tokens: api.validate_tokens,
+        refresh_tokens: api.refresh_tokens
     };
 
 })(window, document, jQuery);
@@ -140,6 +152,85 @@ ponut_skelton.forms = (function (window, document, $) {
         },
         init: function(){
 
+        },
+
+        auth: function(args, method = 'post'){
+
+            args = ponut_skelton.utils.merge_options({
+                form_element: false,
+                form_submit_element: false,
+                success_form_clear: false,
+                error_form_clear: false,
+                success_reload: false,
+                error_reload: false,
+            }, args);
+
+            if( !args.form_element.length || !args.form_submit_element.length ){
+                return false;
+            }
+
+            args.form_submit_element.removeAttr('disabled');
+            args.form_submit_element.ladda();
+
+            args.form_element.on('submit', function(event){
+                event.preventDefault();
+                args.form_submit_element.attr('disabled', 'disabled');
+                args.form_submit_element.ladda( 'start' );
+
+                ponut_skelton.api.post_form({
+                    action: args.form_element.attr('action'),
+                    form_data: forms.form_data({form_element: args.form_element}),
+                    success_callack: function (response) {
+
+                        for(var messageObj of response.data.messages) {
+                            ponut_skelton.notifications.popup_notify({
+                                type: messageObj.type,
+                                title: '',
+                                message: messageObj.message
+                            });
+                            break;
+                        }
+                        if( args.success_form_clear && response.data.success == true ){
+                            console.log("dty");
+                            ponut_skelton.api.store_tokens(response.data.payload.api_token, response.data.payload.api_token_expire);
+                            args.form_submit_element.removeAttr('disabled');
+                            args.form_submit_element.ladda('stop');
+                            args.form_element.trigger('reset');
+                        }else if( args.error_form_clear && response.data.success == false ){
+                            args.form_submit_element.removeAttr('disabled');
+                            args.form_submit_element.ladda('stop');
+                            args.form_element.trigger('reset');
+                        }else if( args.success_reload && response.data.success == true ){
+                            console.log("dty1");
+                            ponut_skelton.api.store_tokens(response.data.payload.api_token, response.data.payload.api_token_expire);
+                            for (var key in app_globals.running_intervals) {
+                                clearInterval(app_globals.running_intervals[key]);
+                            }
+                            setTimeout(function() {
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                                location.reload();
+                            }, 2000);
+                        }else if( args.error_reload && response.data.success == false ){
+                            for (var key in app_globals.running_intervals) {
+                                clearInterval(app_globals.running_intervals[key]);
+                            }
+                            setTimeout(function() {
+                                args.form_submit_element.removeAttr('disabled');
+                                args.form_submit_element.ladda('stop');
+                                location.reload();
+                            }, 2000);
+                        }else{
+                            args.form_submit_element.removeAttr('disabled');
+                            args.form_submit_element.ladda('stop');
+                        }
+                        console.log(response);
+                    },
+                    error_callback: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
         },
 
         simple_form_submit: function(args, method = 'post'){
@@ -341,6 +432,7 @@ ponut_skelton.forms = (function (window, document, $) {
 
     return {
         simple_form_submit: forms.simple_form_submit,
+        auth: forms.auth
     };
 
 })(window, document, jQuery);
