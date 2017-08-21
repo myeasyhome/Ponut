@@ -17,7 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post( 'action/setup/options', ['as' => 'api.action.setup.options', 'uses' => 'API\SetupController@siteOptions'] );
 Route::post( 'action/setup/admin', ['as' => 'api.action.setup.admin', 'uses' => 'API\SetupController@siteAdmin'] );
 Route::post( 'action/fpwd/generate_token', ['as' => 'api.action.fpwd.generate_token', 'uses' => 'API\FpwdController@generateToken'] );

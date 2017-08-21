@@ -94,10 +94,21 @@ ponut_skelton.api = (function (window, document, $) {
             }
 
             // get refresh token
-
-
             // use refresh token to update access token
+            axios.get(app_globals.fetch_refresh_token_url).then(function (response) {
+                console.log(response);
 
+                axios.post(app_globals.update_access_token_url, {
+                        api_refresh_token: ''
+                }).then(function (response) {
+                        console.log(response);
+                }).catch(function (error) {
+                        console.log(error);
+                });
+
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
 
     };
@@ -161,7 +172,7 @@ ponut_skelton.forms = (function (window, document, $) {
                         form_data: forms.form_data({form_element: args.form_element}),
                         success_callack: function (response) {
 
-                            for(var messageObj of response.data.messages.messages) {
+                            for(var messageObj of response.data.messages) {
                                 ponut_skelton.notifications.popup_notify({
                                     type: messageObj.type,
                                     title: '',
@@ -212,7 +223,7 @@ ponut_skelton.forms = (function (window, document, $) {
                         action: args.form_element.attr('action'),
                         form_data: forms.form_data({form_element: args.form_element}),
                         success_callack: function (response) {
-                            for(var messageObj of response.data.messages.messages) {
+                            for(var messageObj of response.data.messages) {
                                 ponut_skelton.notifications.popup_notify({
                                     type: messageObj.type,
                                     title: '',
@@ -263,7 +274,7 @@ ponut_skelton.forms = (function (window, document, $) {
                         action: args.form_element.attr('action'),
                         form_data: forms.form_data({form_element: args.form_element}),
                         success_callack: function (response) {
-                            for(var messageObj of response.data.messages.messages) {
+                            for(var messageObj of response.data.messages) {
                                 ponut_skelton.notifications.popup_notify({
                                     type: messageObj.type,
                                     title: '',
@@ -416,13 +427,13 @@ ponut_skelton.notifications = (function (window, document, $) {
             };
         },
         popup_notify: function(args){
-            if( args.type == 'warning' ){
+            if( args.type.toLowerCase().indexOf('warning') !== -1 ){
                 toastr.clear();
                 toastr.warning(args.message, args.title);
-            }else if( args.type == 'success' ){
+            }else if( args.type.toLowerCase().indexOf('success') !== -1 ){
                 toastr.clear();
                 toastr.success(args.message, args.title);
-            }else if( args.type == 'error' ){
+            }else if( args.type.toLowerCase().indexOf('error') !== -1 ){
                 toastr.clear();
                 toastr.error(args.message, args.title);
             }
