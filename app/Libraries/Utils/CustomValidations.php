@@ -124,6 +124,7 @@ class CustomValidations
      */
     public function passwordRule($attribute, $value, $parameters, $validator)
     {
+        $value = trim($value);
         $pwd_length = strlen($value);
         preg_match_all('/[0-9]/', $value, $match);
         $digits_lenght = count($match[0]);
@@ -131,6 +132,6 @@ class CustomValidations
         $letters_lenght = count($match[0]);
         preg_match_all('/[!@#$%^&*(){}\[\]|?:;,.+\-_]/', $value, $match);
         $special_chars_lenght = count($match[0]);
-        return (boolean) ( ($digits_lenght >= 2) && ($pwd_length == ($digits_lenght + $letters_lenght + $special_chars_lenght)) );
+        return (boolean) ( ($digits_lenght >= 2) && ($pwd_length >= 8) && ($pwd_length == ($digits_lenght + $letters_lenght + $special_chars_lenght)) );
     }
 }
