@@ -15,17 +15,6 @@ use Illuminate\Support\Facades\Validator;
 class CustomValidations
 {
 
-    private static $instance;
-
-
-    public static function instance()
-    {
-        if ( !isset(self::$instance) ) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
     /**
      * Define Validation Rules
      *
