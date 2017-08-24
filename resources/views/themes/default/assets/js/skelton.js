@@ -88,7 +88,7 @@ ponut_skelton.api = (function (window, document, $) {
             var api_token = Cookies.get('api_token');
             var api_token_expire = Cookies.get('api_token_expire');
             var current_time = Math.floor(Date.now() / 1000);
-            if( (current_time - (60 * 60)) >= api_token_expire ){
+            if( (current_time + (60 * 60)) >= api_token_expire ){
                 return false;
             }
             return true;
