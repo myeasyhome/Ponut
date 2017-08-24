@@ -338,7 +338,7 @@ class User implements UserContract
                         'api_token_expire' => $time
                     ]);
                 }else{
-                    UserModel::where('email', $username)->update([
+                    UserModel::where('username', $username)->update([
                         'api_token' => $api_token,
                         'api_token_expire' => $time
                     ]);
