@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Route as RouteModel;
 use Ponut\Modules\Contracts\Route as RouteContract;

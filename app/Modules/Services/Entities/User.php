@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\User as UserModel;
 use Ponut\Models\UserMeta as UserMetaModel;

@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Contracts;
+namespace Ponut\Modules\Contracts\Entities;
 
 interface Department {
 

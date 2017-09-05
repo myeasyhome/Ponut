@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Permission as PermissionModel;
 use Ponut\Modules\Contracts\Permission as PermissionContract;

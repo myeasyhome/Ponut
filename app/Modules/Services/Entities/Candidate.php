@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Modules\Contracts\Candidate as CandidateContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;

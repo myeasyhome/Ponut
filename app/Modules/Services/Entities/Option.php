@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Option as OptionModel;
 use Ponut\Modules\Contracts\Option as OptionContract;
