@@ -8,12 +8,12 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Backend;
 
-use Ponut\Modules\Contracts\Robot as RobotContract;
+use Ponut\Modules\Contracts\Backend\Analytics as AnalyticsContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Robot implements RobotContract
+class Analytics implements AnalyticsContract
 {
     use DispatchesJobs;
 }

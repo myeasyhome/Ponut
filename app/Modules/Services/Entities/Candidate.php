@@ -10,7 +10,7 @@
 
 namespace Ponut\Modules\Services\Entities;
 
-use Ponut\Modules\Contracts\Candidate as CandidateContract;
+use Ponut\Modules\Contracts\Entities\Candidate as CandidateContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Candidate implements CandidateContract

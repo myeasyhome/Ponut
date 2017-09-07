@@ -11,7 +11,7 @@
 namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Route as RouteModel;
-use Ponut\Modules\Contracts\Route as RouteContract;
+use Ponut\Modules\Contracts\Entities\Route as RouteContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Route implements RouteContract

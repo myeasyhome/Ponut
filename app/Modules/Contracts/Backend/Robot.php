@@ -8,8 +8,8 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Contracts;
+namespace Ponut\Modules\Contracts\Backend;
 
-interface Upgrade {
+interface Robot {
 
 }

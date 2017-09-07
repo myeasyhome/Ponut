@@ -11,7 +11,7 @@
 namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Permission as PermissionModel;
-use Ponut\Modules\Contracts\Permission as PermissionContract;
+use Ponut\Modules\Contracts\Entities\Permission as PermissionContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Permission implements PermissionContract

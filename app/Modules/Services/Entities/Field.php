@@ -10,7 +10,7 @@
 
 namespace Ponut\Modules\Services\Entities;
 
-use Ponut\Modules\Contracts\Field as FieldContract;
+use Ponut\Modules\Contracts\Entities\Field as FieldContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Field implements FieldContract

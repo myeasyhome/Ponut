@@ -12,7 +12,7 @@ namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Department as DepartmentModel;
 use Ponut\Models\DepartmentMeta as DepartmentMetaModel;
-use Ponut\Modules\Contracts\Department as DepartmentContract;
+use Ponut\Modules\Contracts\Entities\Department as DepartmentContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Department implements DepartmentContract

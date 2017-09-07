@@ -11,7 +11,7 @@
 namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Option as OptionModel;
-use Ponut\Modules\Contracts\Option as OptionContract;
+use Ponut\Modules\Contracts\Entities\Option as OptionContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Option implements OptionContract

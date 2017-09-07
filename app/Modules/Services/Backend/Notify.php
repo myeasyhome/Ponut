@@ -8,12 +8,12 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Backend;
 
 use Ponut\Models\User as UserModel;
 
 use Notification;
-use Ponut\Modules\Contracts\Notify as NotifyContract;
+use Ponut\Modules\Contracts\Backend\Notify as NotifyContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Ponut\Notifications\ThankYou;
 use Ponut\Notifications\Welcome;

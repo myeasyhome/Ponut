@@ -8,13 +8,12 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services;
+namespace Ponut\Modules\Services\Backend;
 
-use Ponut\Modules\Contracts\Backend as BackendContract;
+use Ponut\Modules\Contracts\Backend\Upgrade as UpgradeContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Backend implements BackendContract
+class Upgrade implements UpgradeContract
 {
     use DispatchesJobs;
-
 }

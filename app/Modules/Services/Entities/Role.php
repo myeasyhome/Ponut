@@ -13,7 +13,7 @@ namespace Ponut\Modules\Services\Entities;
 use Ponut\Models\Role as RoleModel;
 use Ponut\Models\Permission as PermissionModel;
 use Ponut\Models\PermissionRole as PermissionRoleModel;
-use Ponut\Modules\Contracts\Role as RoleContract;
+use Ponut\Modules\Contracts\Entities\Role as RoleContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Role implements RoleContract

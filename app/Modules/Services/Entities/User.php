@@ -13,7 +13,7 @@ namespace Ponut\Modules\Services\Entities;
 use Ponut\Models\User as UserModel;
 use Ponut\Models\UserMeta as UserMetaModel;
 use Ponut\Models\PasswordReset as PasswordResetModel;
-use Ponut\Modules\Contracts\User as UserContract;
+use Ponut\Modules\Contracts\Entities\User as UserContract;
 use Ponut\Jobs\SendForgotPasswordEmail;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

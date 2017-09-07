@@ -17,25 +17,24 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 use Illuminate\Http\Request;
 use Auth;
-use Ponut\Modules\Contracts\Analytics as AnalyticsContract;
-use Ponut\Modules\Contracts\Backend as BackendContract;
-use Ponut\Modules\Contracts\Candidate as CandidateContract;
-use Ponut\Modules\Contracts\Department as DepartmentContract;
-use Ponut\Modules\Contracts\Field as FieldContract;
-use Ponut\Modules\Contracts\Frontend as FrontendContract;
-use Ponut\Modules\Contracts\Job as JobContract;
-use Ponut\Modules\Contracts\Option as OptionContract;
-use Ponut\Modules\Contracts\Permission as PermissionContract;
-use Ponut\Modules\Contracts\Robot as RobotContract;
-use Ponut\Modules\Contracts\Role as RoleContract;
-use Ponut\Modules\Contracts\Setup as SetupContract;
-use Ponut\Modules\Contracts\Upgrade as UpgradeContract;
-use Ponut\Modules\Contracts\User as UserContract;
-use Ponut\Modules\Contracts\Notify as NotifyContract;
-use Ponut\Modules\Contracts\Appearance as AppearanceContract;
-use Ponut\Modules\Contracts\Plugin as PluginContract;
-use Ponut\Modules\Contracts\Route as RouteContract;
 
+use Ponut\Modules\Contracts\Entities\Candidate as CandidateContract;
+use Ponut\Modules\Contracts\Entities\Department as DepartmentContract;
+use Ponut\Modules\Contracts\Entities\Field as FieldContract;
+use Ponut\Modules\Contracts\Entities\Job as JobContract;
+use Ponut\Modules\Contracts\Entities\Option as OptionContract;
+use Ponut\Modules\Contracts\Entities\Permission as PermissionContract;
+use Ponut\Modules\Contracts\Entities\Role as RoleContract;
+use Ponut\Modules\Contracts\Entities\Route as RouteContract;
+use Ponut\Modules\Contracts\Entities\User as UserContract;
+
+use Ponut\Modules\Contracts\Backend\Analytics as AnalyticsContract;
+use Ponut\Modules\Contracts\Backend\Appearance as AppearanceContract;
+use Ponut\Modules\Contracts\Backend\Notify as NotifyContract;
+use Ponut\Modules\Contracts\Backend\Plugin as PluginContract;
+use Ponut\Modules\Contracts\Backend\Robot as RobotContract;
+use Ponut\Modules\Contracts\Backend\Setup as SetupContract;
+use Ponut\Modules\Contracts\Backend\Upgrade as UpgradeContract;
 
 class Controller extends BaseController
 {

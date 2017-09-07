@@ -12,7 +12,7 @@ namespace Ponut\Modules\Services\Entities;
 
 use Ponut\Models\Job as JobModel;
 use Ponut\Models\JobMeta as JobMetaModel;
-use Ponut\Modules\Contracts\Job as JobContract;
+use Ponut\Modules\Contracts\Entities\Job as JobContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Job implements JobContract
