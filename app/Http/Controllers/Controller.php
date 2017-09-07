@@ -66,11 +66,9 @@ class Controller extends BaseController
     ];
 
     protected $analytics;
-    protected $backend;
     protected $candidate;
     protected $department;
     protected $field;
-    protected $frontend;
     protected $job;
     protected $option;
     protected $permission;
@@ -90,15 +88,13 @@ class Controller extends BaseController
     /**
      * Constructor
      */
-    public function __construct( AnalyticsContract $analytics, BackendContract $backend, CandidateContract $candidate, DepartmentContract $department, FieldContract $field, FrontendContract $frontend, JobContract $job, OptionContract $option, PermissionContract $permission, RobotContract $robot, RoleContract $role, SetupContract $setup, UpgradeContract $upgrade, UserContract $user, NotifyContract $notify, Request $request, PluginContract $plugin, AppearanceContract $appearance, RouteContract $route)
+    public function __construct( AnalyticsContract $analytics, CandidateContract $candidate, DepartmentContract $department, FieldContract $field, JobContract $job, OptionContract $option, PermissionContract $permission, RobotContract $robot, RoleContract $role, SetupContract $setup, UpgradeContract $upgrade, UserContract $user, NotifyContract $notify, Request $request, PluginContract $plugin, AppearanceContract $appearance, RouteContract $route)
     {
 
         $this->analytics = $analytics;
-        $this->backend = $backend;
         $this->candidate = $candidate;
         $this->department = $department;
         $this->field = $field;
-        $this->frontend = $frontend;
         $this->job = $job;
         $this->option = $option;
         $this->permission = $permission;

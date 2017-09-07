@@ -27,23 +27,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind( 'Ponut\Modules\Contracts\Analytics', 'Ponut\Modules\Services\Analytics');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend', 'Ponut\Modules\Services\Backend');
-        $this->app->bind( 'Ponut\Modules\Contracts\Candidate', 'Ponut\Modules\Services\Candidate');
-        $this->app->bind( 'Ponut\Modules\Contracts\Department', 'Ponut\Modules\Services\Department');
-        $this->app->bind( 'Ponut\Modules\Contracts\Field', 'Ponut\Modules\Services\Field');
-        $this->app->bind( 'Ponut\Modules\Contracts\Frontend', 'Ponut\Modules\Services\Frontend');
-        $this->app->bind( 'Ponut\Modules\Contracts\Job', 'Ponut\Modules\Services\Job');
-        $this->app->bind( 'Ponut\Modules\Contracts\Option', 'Ponut\Modules\Services\Option');
-        $this->app->bind( 'Ponut\Modules\Contracts\Permission', 'Ponut\Modules\Services\Permission');
-        $this->app->bind( 'Ponut\Modules\Contracts\Robot', 'Ponut\Modules\Services\Robot');
-        $this->app->bind( 'Ponut\Modules\Contracts\Role', 'Ponut\Modules\Services\Role');
-        $this->app->bind( 'Ponut\Modules\Contracts\Setup', 'Ponut\Modules\Services\Setup');
-        $this->app->bind( 'Ponut\Modules\Contracts\Upgrade', 'Ponut\Modules\Services\Upgrade');
-        $this->app->bind( 'Ponut\Modules\Contracts\User', 'Ponut\Modules\Services\User');
-        $this->app->bind( 'Ponut\Modules\Contracts\Notify', 'Ponut\Modules\Services\Notify');
-        $this->app->bind( 'Ponut\Modules\Contracts\Plugin', 'Ponut\Modules\Services\Plugin');
-        $this->app->bind( 'Ponut\Modules\Contracts\Appearance', 'Ponut\Modules\Services\Appearance');
-        $this->app->bind( 'Ponut\Modules\Contracts\Route', 'Ponut\Modules\Services\Route');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Analytics', 'Ponut\Modules\Services\Backend\Analytics');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Appearance', 'Ponut\Modules\Services\Backend\Appearance');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Notify', 'Ponut\Modules\Services\Backend\Notify');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Plugin', 'Ponut\Modules\Services\Backend\Plugin');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Robot', 'Ponut\Modules\Services\Backend\Robot');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Setup', 'Ponut\Modules\Services\Backend\Setup');
+        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Upgrade', 'Ponut\Modules\Services\Backend\Upgrade');
+
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Candidate', 'Ponut\Modules\Services\Entities\Candidate');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Department', 'Ponut\Modules\Services\Entities\Department');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Field', 'Ponut\Modules\Services\Entities\Field');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Job', 'Ponut\Modules\Services\Entities\Job');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Option', 'Ponut\Modules\Services\Entities\Option');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Permission', 'Ponut\Modules\Services\Entities\Permission');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Role', 'Ponut\Modules\Services\Entities\Role');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\User', 'Ponut\Modules\Services\Entities\User');
+        $this->app->bind( 'Ponut\Modules\Contracts\Entities\Route', 'Ponut\Modules\Services\Entities\Route');
     }
 }
