@@ -44,5 +44,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind( 'Ponut\Modules\Contracts\Entities\Role', 'Ponut\Modules\Services\Entities\Role');
         $this->app->bind( 'Ponut\Modules\Contracts\Entities\User', 'Ponut\Modules\Services\Entities\User');
         $this->app->bind( 'Ponut\Modules\Contracts\Entities\Route', 'Ponut\Modules\Services\Entities\Route');
+
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Request', 'Ponut\Modules\Services\API\Request');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Response', 'Ponut\Modules\Services\API\Response');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Validator', 'Ponut\Modules\Services\API\Validator');
     }
 }
