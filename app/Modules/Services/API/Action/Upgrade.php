@@ -8,9 +8,9 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services\Backend;
+namespace Ponut\Modules\Services\API\Action;
 
-use Ponut\Modules\Contracts\Backend\Upgrade as UpgradeContract;
+use Ponut\Modules\Contracts\API\Action\Upgrade as UpgradeContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Upgrade implements UpgradeContract

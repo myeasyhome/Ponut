@@ -8,7 +8,7 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Contracts\Backend;
+namespace Ponut\Modules\Contracts\API\Action;
 
 interface Notify {
 

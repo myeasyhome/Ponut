@@ -28,13 +28,13 @@ use Ponut\Modules\Contracts\Entities\Role as RoleContract;
 use Ponut\Modules\Contracts\Entities\Route as RouteContract;
 use Ponut\Modules\Contracts\Entities\User as UserContract;
 
-use Ponut\Modules\Contracts\Backend\Analytics as AnalyticsContract;
-use Ponut\Modules\Contracts\Backend\Appearance as AppearanceContract;
-use Ponut\Modules\Contracts\Backend\Notify as NotifyContract;
-use Ponut\Modules\Contracts\Backend\Plugin as PluginContract;
-use Ponut\Modules\Contracts\Backend\Robot as RobotContract;
-use Ponut\Modules\Contracts\Backend\Setup as SetupContract;
-use Ponut\Modules\Contracts\Backend\Upgrade as UpgradeContract;
+use Ponut\Modules\Contracts\API\Action\Analytics as AnalyticsContract;
+use Ponut\Modules\Contracts\API\Action\Appearance as AppearanceContract;
+use Ponut\Modules\Contracts\API\Action\Notify as NotifyContract;
+use Ponut\Modules\Contracts\API\Action\Plugin as PluginContract;
+use Ponut\Modules\Contracts\API\Action\Robot as RobotContract;
+use Ponut\Modules\Contracts\API\Action\Setup as SetupContract;
+use Ponut\Modules\Contracts\API\Action\Upgrade as UpgradeContract;
 
 class Controller extends BaseController
 {

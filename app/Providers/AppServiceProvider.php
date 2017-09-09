@@ -27,13 +27,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Analytics', 'Ponut\Modules\Services\Backend\Analytics');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Appearance', 'Ponut\Modules\Services\Backend\Appearance');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Notify', 'Ponut\Modules\Services\Backend\Notify');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Plugin', 'Ponut\Modules\Services\Backend\Plugin');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Robot', 'Ponut\Modules\Services\Backend\Robot');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Setup', 'Ponut\Modules\Services\Backend\Setup');
-        $this->app->bind( 'Ponut\Modules\Contracts\Backend\Upgrade', 'Ponut\Modules\Services\Backend\Upgrade');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Analytics', 'Ponut\Modules\Services\API\Action\Analytics');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Appearance', 'Ponut\Modules\Services\API\Action\Appearance');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Notify', 'Ponut\Modules\Services\API\Action\Notify');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Plugin', 'Ponut\Modules\Services\API\Action\Plugin');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Robot', 'Ponut\Modules\Services\API\Action\Robot');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Setup', 'Ponut\Modules\Services\API\Action\Setup');
+        $this->app->bind( 'Ponut\Modules\Contracts\API\Action\Upgrade', 'Ponut\Modules\Services\API\Action\Upgrade');
 
         $this->app->bind( 'Ponut\Modules\Contracts\Entities\Candidate', 'Ponut\Modules\Services\Entities\Candidate');
         $this->app->bind( 'Ponut\Modules\Contracts\Entities\Department', 'Ponut\Modules\Services\Entities\Department');

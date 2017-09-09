@@ -8,9 +8,9 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services\Backend;
+namespace Ponut\Modules\Services\API\Action;
 
-use Ponut\Modules\Contracts\Backend\Robot as RobotContract;
+use Ponut\Modules\Contracts\API\Action\Robot as RobotContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Robot implements RobotContract

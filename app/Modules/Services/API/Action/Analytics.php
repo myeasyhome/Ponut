@@ -8,9 +8,9 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services\Backend;
+namespace Ponut\Modules\Services\API\Action;
 
-use Ponut\Modules\Contracts\Backend\Analytics as AnalyticsContract;
+use Ponut\Modules\Contracts\API\Action\Analytics as AnalyticsContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Analytics implements AnalyticsContract

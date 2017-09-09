@@ -8,9 +8,9 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services\Backend;
+namespace Ponut\Modules\Services\API\Action;
 
-use Ponut\Modules\Contracts\Backend\Appearance as AppearanceContract;
+use Ponut\Modules\Contracts\API\Action\Appearance as AppearanceContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\File;
 

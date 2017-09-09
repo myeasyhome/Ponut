@@ -8,11 +8,11 @@
  * @package     Ponut
  */
 
-namespace Ponut\Modules\Services\Backend;
+namespace Ponut\Modules\Services\API\Action;
 
 use Ponut\Models\User as UserModel;
 use Ponut\Models\Option as OptionModel;
-use Ponut\Modules\Contracts\Backend\Setup as SetupContract;
+use Ponut\Modules\Contracts\API\Action\Setup as SetupContract;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Ponut\Notifications\ThankYou;
 
