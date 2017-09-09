@@ -4,22 +4,19 @@ Ponut
 
 [![Build Status](https://travis-ci.org/Clivern/Ponut.svg?branch=master)](https://travis-ci.org/Clivern/Ponut)
 
-Installation
-------------
-
-To install `ponut`, use the following:
-
-```php
-#~
+Development
+-----------
+If you want to share some love, Please follow the following to run `ponut` locally.
 ```
-
-Usage
------
-
-```php
-#~
+git clone https://github.com/Clivern/Ponut.git
+composer install
+npm install
+vagrant up
+vagrant ssh
+cd Code
+./artisan migrate
+./artisan db:seed
 ```
-
 
 Misc
 ====
