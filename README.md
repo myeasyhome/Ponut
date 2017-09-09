@@ -7,15 +7,15 @@ Ponut
 Development
 -----------
 If you want to share some love, Please follow the following to run `ponut` locally.
-```
-git clone https://github.com/Clivern/Ponut.git
-composer install
-npm install
-vagrant up
-vagrant ssh
-cd Code
-./artisan migrate
-./artisan db:seed
+```bash
+$ git clone https://github.com/Clivern/Ponut.git
+$ composer install
+$ npm install
+$ vagrant up
+$ vagrant ssh
+$ cd Code
+$ ./artisan migrate
+$ ./artisan db:seed
 ```
 
 Misc
