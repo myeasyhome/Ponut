@@ -1,3 +1,5 @@
+<p align="center"><img src="http://ponut.co/assets/images/logo.png"></p>
+
 Ponut
 ====
 :rocket: Applicant Tracking System (ATS)
