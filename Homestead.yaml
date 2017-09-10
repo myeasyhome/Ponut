@@ -1,0 +1,19 @@
+ip: 192.168.10.10
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: /var/www/ponut
+        to: /var/www/ponut
+sites:
+    -
+        map: ponut.com
+        to: /var/www/ponut/public
+databases:
+    - homestead
+name: ponut_vm
+hostname: ponut
