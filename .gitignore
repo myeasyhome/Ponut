@@ -1,0 +1,8 @@
+/node_modules
+/vendor
+/.vagrant
+npm-debug.log
+yarn-error.log
+.env
+.phpintel/
+coverage.clover
